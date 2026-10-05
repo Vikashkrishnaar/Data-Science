@@ -1,0 +1,12 @@
+# GridWatch acceptance outcomes
+
+- Build a responsive, accessible website suitable for GitHub, demonstrations, resumes, and portfolio review, with concise academically honest copy throughout.
+- Present existing transformer monitoring context including SCADA, condition-monitoring sensors, threshold alarms, periodic inspections, transformer diagnostics, maintenance records, and predictive analytics; frame the gap as integrating available historical operating data into a clearer decision-support workflow.
+- Prominently define what the prototype does and does not do, including that it complements rather than replaces monitoring infrastructure, diagnostic methods, professional inspection, engineering judgement, or utility operations.
+- Show the full proposed workflow: Sensor / historical data → Data validation → Data preprocessing → Exploratory Data Analysis → Feature engineering → Failure-risk prediction → Model evaluation → Explainable AI → Transformer health assessment → Maintenance recommendations → Risk prioritisation → Interactive dashboard.
+- Explain the dataset-first approval gate: inspect and validate the dataset before target selection or modelling; treat failure_24h as provisional; never fabricate labels; stop and document the limitation if valid future-failure labels cannot be supported.
+- Explain modelling discipline: baseline models first, chronological splitting when temporal leakage is possible, and evaluation with precision, recall, F1, ROC-AUC, PR-AUC, confusion matrix, calibration, false positives, and false negatives rather than accuracy alone.
+- Present practical outputs: feature contributions, transformer health status, risk bands, maintenance-oriented suggestions, and engineering-inspection priority without implying automated diagnosis.
+- Include a phase progress timeline with visible approval gates and a next-phase CTA that requests approval instead of automatically executing the next phase.
+- Include a clearly illustrative sample transformer risk table with risk bands, health status, inspection priority, and a non-fabrication disclaimer.
+- Avoid invented dataset contents, labels, metrics, sensor coverage, novelty claims, and production deployment claims.
