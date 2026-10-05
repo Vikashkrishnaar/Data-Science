@@ -32,3 +32,4 @@ GridWatch is a portfolio-quality, responsive presentation site for a student-lev
 - `app.config.ts`: project logo metadata.
 - `TODO.md`: acceptance outcomes.
 - `PHASE_1_DATASET_VALIDATION.md`: dataset-selection gate, validation protocol, target rules, leakage controls, and feature-engineering strategy.
+- `PHASE_2_DATA_DICTIONARY_AND_MODEL_SPEC.md`: data dictionary contract, preprocessing, EDA, baseline-model protocol, and feature-engineering specification.
