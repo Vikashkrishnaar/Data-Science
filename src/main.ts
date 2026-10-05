@@ -118,7 +118,7 @@ app.innerHTML = `
         <span class="brand-mark"><i></i><i></i><b></b></span>
         <span class="brand-name">Grid<span>Watch</span></span>
       </a>
-      <div class="topbar-meta"><span class="live-dot"></span><span>Prototype / phase 01</span><span class="meta-divider"></span><span>Decision support, not control</span></div>
+      <div class="topbar-meta"><span class="live-dot"></span><span>Prototype / phase 05 review</span><span class="meta-divider"></span><span>Decision support, not control</span></div>
       <a class="rail-link" href="#next-phase">Next phase ${icon('arrow')}</a>
     </header>
 
@@ -143,7 +143,7 @@ app.innerHTML = `
             <div class="hero-note"><span class="note-mark">↳</span> No autonomous control. No fabricated labels. No novelty claims.</div>
           </div>
           <div class="hero-instrument" aria-label="Prototype status panel">
-            <div class="instrument-head"><span>READINESS / 01</span><span class="instrument-status"><i></i> PLAN READY</span></div>
+            <div class="instrument-head"><span>READINESS / 05</span><span class="instrument-status"><i></i> REPORT READY</span></div>
             <div class="dial-wrap">
               <div class="dial"><div class="dial-inner"><span class="dial-value">01</span><span class="dial-caption">phase</span></div><span class="dial-tick tick-a"></span><span class="dial-tick tick-b"></span><span class="dial-tick tick-c"></span></div>
               <div class="instrument-copy"><span class="tiny-label">CURRENT QUESTION</span><strong>Is the dataset fit<br/>for this question?</strong><span class="instrument-sub">Validation plan is ready. A real source still needs approval.</span></div>

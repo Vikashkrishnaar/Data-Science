@@ -38,3 +38,4 @@ GridWatch is a portfolio-quality, responsive presentation site for a student-lev
 - `requirements-phase3.txt`: pinned Python dependencies for rerunning the Phase 3 pipeline.
 - `scripts/phase4_explainability.py`: global feature importance, local reason codes, transparent health scoring, maintenance suggestions, and fleet prioritisation.
 - `artifacts/phase4/`: explainability rankings, local factors, health assessment, maintenance recommendations, prioritisation outputs, plots, and Phase 4 report.
+- `PHASE_5_COMPREHENSIVE_PROJECT_REPORT.md`: consolidated methodology, results, limitations, reproducibility notes, final dashboard scope, and TX-010 inspection detail.
