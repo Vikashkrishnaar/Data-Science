@@ -39,3 +39,6 @@ GridWatch is a portfolio-quality, responsive presentation site for a student-lev
 - `scripts/phase4_explainability.py`: global feature importance, local reason codes, transparent health scoring, maintenance suggestions, and fleet prioritisation.
 - `artifacts/phase4/`: explainability rankings, local factors, health assessment, maintenance recommendations, prioritisation outputs, plots, and Phase 4 report.
 - `PHASE_5_COMPREHENSIVE_PROJECT_REPORT.md`: consolidated methodology, results, limitations, reproducibility notes, final dashboard scope, and TX-010 inspection detail.
+- `data/real/uk_power_station_dga_2010_2015/`: real CC BY 4.0 UK power-station transformer DGA source archive, normalized long table, source metadata, quality summary, and validation outputs.
+- `scripts/phase6_real_dataset_validation.py`: reproducible real-dataset normalization and validation pipeline.
+- `data/real/uk_power_station_dga_2010_2015/validated/PHASE_6_REAL_DATASET_VALIDATION.md`: Phase 6 source, quality, licensing, and target-feasibility report.

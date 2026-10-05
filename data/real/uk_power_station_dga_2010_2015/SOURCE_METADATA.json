@@ -1,0 +1,16 @@
+{
+  "title": "UK Power Station Transformer Dissolved Gas Analysis Data (2010-2015)",
+  "doi": "10.5281/zenodo.5796243",
+  "record_url": "https://zenodo.org/records/5796243",
+  "download_url": "https://zenodo.org/api/records/5796243/files/Lewis_et_al_2022_DGA_data.zip/content",
+  "license": "CC BY 4.0",
+  "creators": [
+    "Zoë M. Lewis",
+    "James A. Wild",
+    "Matthew Allcock"
+  ],
+  "scope": "Dissolved gas analysis records from 13 UK power-station transformers, with timestamps in UTC and gas concentrations in parts per million.",
+  "attribution": "Cite Lewis et al. when using these data and retain the Zenodo CC BY 4.0 attribution.",
+  "downloaded_at": "2026-10-05",
+  "project_note": "This dataset is appropriate for real DGA condition-monitoring analysis. It does not provide a failure-event label, health index, load, current, voltage, or temperature field, so it does not support the provisional failure_24h target without an additional authoritative label source."
+}

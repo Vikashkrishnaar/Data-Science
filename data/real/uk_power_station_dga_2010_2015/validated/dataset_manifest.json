@@ -1,0 +1,47 @@
+{
+  "source": {
+    "title": "UK Power Station Transformer Dissolved Gas Analysis Data (2010-2015)",
+    "doi": "10.5281/zenodo.5796243",
+    "record_url": "https://zenodo.org/records/5796243",
+    "download_url": "https://zenodo.org/api/records/5796243/files/Lewis_et_al_2022_DGA_data.zip/content",
+    "license": "CC BY 4.0",
+    "creators": [
+      "Zoë M. Lewis",
+      "James A. Wild",
+      "Matthew Allcock"
+    ],
+    "provider_context": "Data provided by EDF Energy Nuclear Generation; affiliations listed on the Zenodo record.",
+    "dataset_scope": "Dissolved gas analysis records from 13 UK power-station transformers, with timestamps in UTC and gas concentrations in ppm.",
+    "citation_note": "Cite Lewis et al. when using these data and retain the CC BY 4.0 attribution."
+  },
+  "validation": {
+    "transformers": 13,
+    "raw_rows": 316203,
+    "normalized_measurements": 1920417,
+    "timestamp_parse_failures": 0,
+    "duplicate_timestamps_total": 19,
+    "date_start_utc": "2010-07-02T00:00:00",
+    "date_end_utc": "2015-07-09T14:00:00",
+    "gases": [
+      "Acetylene",
+      "Carbon Dioxide",
+      "Carbon Monoxide",
+      "Ethane",
+      "Ethylene",
+      "Hydrogen",
+      "Methane",
+      "Oxygen",
+      "Water"
+    ],
+    "has_failure_or_fault_label": false,
+    "has_load_or_temperature": false,
+    "target_assessment": "failure_24h is not supported by this dataset as downloaded: no failure-event or fault-label column is present. Use DGA trend analysis, fault-proxy research with documented external labels, or health-index work only after an explicit target decision."
+  },
+  "outputs": [
+    "normalized_dga_long.csv.gz",
+    "asset_quality_summary.csv",
+    "gas_measurement_counts.png",
+    "dataset_manifest.json",
+    "PHASE_6_REAL_DATASET_VALIDATION.md"
+  ]
+}
