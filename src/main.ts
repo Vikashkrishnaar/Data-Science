@@ -25,8 +25,8 @@ type RiskRow = {
 const phases: Phase[] = [
   {
     id: 'data', number: '01', name: 'Data readiness', eyebrow: 'FOUNDATION',
-    description: 'Inspect the supplied data before choosing a target, a model, or a dashboard. Record schema, timestamps, sampling, units, missingness, asset IDs, failure events, and licence constraints.',
-    evidence: 'Dataset assessment + data-quality report', gate: 'Approval gate: dataset is fit for the proposed question', state: 'active',
+    description: 'Phase 1 is plan-ready but dataset-pending: inspect schema, timestamps, sampling, units, missingness, asset IDs, failure events, licence constraints, and the evidence needed before choosing a target or model.',
+    evidence: 'Dataset assessment + quality report + feature dictionary', gate: 'Approval gate: a real dataset is fit for the proposed question', state: 'active',
   },
   {
     id: 'explore', number: '02', name: 'Understand patterns', eyebrow: 'DISCOVERY',
@@ -97,12 +97,12 @@ app.innerHTML = `
             <div class="hero-note"><span class="note-mark">↳</span> No autonomous control. No fabricated labels. No novelty claims.</div>
           </div>
           <div class="hero-instrument" aria-label="Prototype status panel">
-            <div class="instrument-head"><span>READINESS / 01</span><span class="instrument-status"><i></i> IN REVIEW</span></div>
+            <div class="instrument-head"><span>READINESS / 01</span><span class="instrument-status"><i></i> PLAN READY</span></div>
             <div class="dial-wrap">
               <div class="dial"><div class="dial-inner"><span class="dial-value">01</span><span class="dial-caption">phase</span></div><span class="dial-tick tick-a"></span><span class="dial-tick tick-b"></span><span class="dial-tick tick-c"></span></div>
-              <div class="instrument-copy"><span class="tiny-label">CURRENT QUESTION</span><strong>Is the dataset fit<br/>for this question?</strong><span class="instrument-sub">Target and horizon remain provisional until the data says otherwise.</span></div>
+              <div class="instrument-copy"><span class="tiny-label">CURRENT QUESTION</span><strong>Is the dataset fit<br/>for this question?</strong><span class="instrument-sub">Validation plan is ready. A real source still needs approval.</span></div>
             </div>
-            <div class="instrument-readout"><div><span class="tiny-label">PROVISIONAL TARGET</span><code>failure_24h</code></div><div><span class="tiny-label">HORIZON</span><strong>24 h*</strong></div><div><span class="tiny-label">STATUS</span><strong class="lime-text">Pending validation</strong></div></div>
+            <div class="instrument-readout"><div><span class="tiny-label">PROVISIONAL TARGET</span><code>failure_24h</code></div><div><span class="tiny-label">HORIZON</span><strong>24 h*</strong></div><div><span class="tiny-label">STATUS</span><strong class="lime-text">Dataset pending</strong></div></div>
             <p class="instrument-foot">* Do not treat the 24-hour horizon as fixed until timestamped failure information supports it.</p>
           </div>
         </section>
@@ -144,6 +144,18 @@ app.innerHTML = `
           </div>
         </section>
 
+        <section class="feature-plan-section section-pad" id="feature-plan">
+          <div class="section-kicker"><span>04A</span><span>Phase 1 / feature-engineering strategy</span></div>
+          <div class="feature-plan-head"><div><h2>Engineer the<br/><em>past, not the future.</em></h2></div><p>Feature design begins only after sampling, units, and event definitions are known. Every candidate below is trailing, auditable, and conditional on the variables the dataset actually contains.</p></div>
+          <div class="feature-plan-grid">
+            <article class="feature-plan-card"><span class="feature-plan-number">01</span><h3>State + trend</h3><p>Latest readings, lags, deltas, slopes, and temperature / current / load rate-of-change features.</p><span class="feature-plan-foot">requires ordered history</span></article>
+            <article class="feature-plan-card"><span class="feature-plan-number">02</span><h3>Rolling behaviour</h3><p>Trailing mean, min, max, variability, and recency over windows chosen after sampling inspection.</p><span class="feature-plan-foot">no centred windows</span></article>
+            <article class="feature-plan-card"><span class="feature-plan-number">03</span><h3>Excursions + gaps</h3><p>Documented overload / abnormal counts, duration, missingness indicators, and stale-reading flags.</p><span class="feature-plan-foot">thresholds must be justified</span></article>
+            <article class="feature-plan-card"><span class="feature-plan-number">04</span><h3>Asset history</h3><p>Age, time since maintenance, prior event count, and asset-baseline deviations only when records exist.</p><span class="feature-plan-foot">cut-off safe at T</span></article>
+          </div>
+          <div class="feature-plan-note"><span>LEAKAGE REGISTER</span><strong>Fit imputers, scalers, baselines, and encoders on training data only. Construct future-event labels separately from pre-T inputs.</strong></div>
+        </section>
+
         <section class="outputs-section section-pad" id="outputs">
           <div class="section-kicker"><span>05</span><span>Decision-support outputs</span></div>
           <div class="outputs-head"><div><h2>Signals with<br/><em>context attached.</em></h2></div><p>These rows are illustrative interface records, not claims about a real dataset. Select one to see the kind of rationale an engineer should be able to inspect.</p></div>
@@ -163,7 +175,7 @@ app.innerHTML = `
         <section class="timeline-section section-pad" id="progress">
           <div class="section-kicker"><span>07</span><span>Approval gates / progress</span></div>
           <div class="timeline-head"><div><h2>Progress is a<br/><em>permission.</em></h2></div><p>The master prompt is executed phase by phase. Each stop protects the next decision from being built on an unverified assumption.</p></div>
-          <div class="timeline"><div class="timeline-item current"><div class="timeline-marker"><span>01</span></div><div><span class="timeline-status">CURRENT / IN REVIEW</span><h3>Inspect and validate the dataset</h3><p>File format, asset coverage, timestamps, failure information, quality, licence, and limitations.</p></div><div class="timeline-gate">GATE 01<br/><strong>Fit for question?</strong></div></div><div class="timeline-item"><div class="timeline-marker"><span>02</span></div><div><span class="timeline-status">QUEUED / NEEDS APPROVAL</span><h3>Explore, engineer, and define</h3><p>Only after the dataset assessment confirms what can be measured, labelled, and split safely.</p></div><div class="timeline-gate">GATE 02<br/><strong>Features defensible?</strong></div></div><div class="timeline-item"><div class="timeline-marker"><span>03</span></div><div><span class="timeline-status">CONDITIONAL / LATER</span><h3>Model, explain, and prioritise</h3><p>Compare baselines, evaluate honestly, and translate outputs into inspection-oriented context.</p></div><div class="timeline-gate">GATE 03<br/><strong>Safe to interpret?</strong></div></div></div>
+          <div class="timeline"><div class="timeline-item current"><div class="timeline-marker"><span>01</span></div><div><span class="timeline-status">CURRENT / PLAN READY</span><h3>Inspect and validate the dataset</h3><p>The validation protocol and feature strategy are documented; a real source, licence, and event definition are still required.</p></div><div class="timeline-gate">GATE 01<br/><strong>Fit for question?</strong></div></div><div class="timeline-item"><div class="timeline-marker"><span>02</span></div><div><span class="timeline-status">QUEUED / NEEDS APPROVAL</span><h3>Explore, engineer, and define</h3><p>Only after the dataset assessment confirms what can be measured, labelled, and split safely.</p></div><div class="timeline-gate">GATE 02<br/><strong>Features defensible?</strong></div></div><div class="timeline-item"><div class="timeline-marker"><span>03</span></div><div><span class="timeline-status">CONDITIONAL / LATER</span><h3>Model, explain, and prioritise</h3><p>Compare baselines, evaluate honestly, and translate outputs into inspection-oriented context.</p></div><div class="timeline-gate">GATE 03<br/><strong>Safe to interpret?</strong></div></div></div>
         </section>
 
         <section class="next-phase section-pad" id="next-phase">

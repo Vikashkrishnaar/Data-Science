@@ -31,3 +31,4 @@ GridWatch is a portfolio-quality, responsive presentation site for a student-lev
 - `public/manus-routes.json`: route manifest.
 - `app.config.ts`: project logo metadata.
 - `TODO.md`: acceptance outcomes.
+- `PHASE_1_DATASET_VALIDATION.md`: dataset-selection gate, validation protocol, target rules, leakage controls, and feature-engineering strategy.
