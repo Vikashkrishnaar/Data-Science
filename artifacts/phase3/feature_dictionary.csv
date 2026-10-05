@@ -1,0 +1,26 @@
+feature_name,role,definition,unit,available_at,leakage_status,synthetic_only
+voltage_kv,raw,Voltage measurement,kV,T or trailing history before T,PASS: generated without future rows,True
+current_a,raw,Current measurement,A,T or trailing history before T,PASS: generated without future rows,True
+load_pct,raw,Load percentage,%,T or trailing history before T,PASS: generated without future rows,True
+ambient_temp_c,raw,Ambient temperature,°C,T or trailing history before T,PASS: generated without future rows,True
+oil_temp_c,raw,Oil temperature,°C,T or trailing history before T,PASS: generated without future rows,True
+winding_temp_c,raw,Winding temperature,°C,T or trailing history before T,PASS: generated without future rows,True
+power_factor,raw,Power factor,ratio,T or trailing history before T,PASS: generated without future rows,True
+frequency_hz,raw,Frequency,Hz,T or trailing history before T,PASS: generated without future rows,True
+transformer_age_years,context,Asset age at observation,years,T or trailing history before T,PASS: generated without future rows,True
+maintenance_age_days,history,Days since synthetic maintenance baseline,days,T or trailing history before T,PASS: generated without future rows,True
+load_pct_missing,missingness,Load missing indicator,0/1,T or trailing history before T,PASS: generated without future rows,True
+oil_temp_c_missing,missingness,Oil temperature missing indicator,0/1,T or trailing history before T,PASS: generated without future rows,True
+power_factor_missing,missingness,Power factor missing indicator,0/1,T or trailing history before T,PASS: generated without future rows,True
+load_pct_lag_1,lag,Previous load observation,%,T or trailing history before T,PASS: generated without future rows,True
+oil_temp_c_lag_1,lag,Previous oil temperature observation,°C,T or trailing history before T,PASS: generated without future rows,True
+load_pct_delta_1h,change,Current load minus previous load,% points,T or trailing history before T,PASS: generated without future rows,True
+oil_temp_c_delta_3h,change,Oil temperature change over 3 hours,°C,T or trailing history before T,PASS: generated without future rows,True
+oil_temp_c_rate_1h,trend,One-hour oil temperature difference,°C/hour,T or trailing history before T,PASS: generated without future rows,True
+load_pct_roll_mean_6h,rolling,Trailing 6-hour load mean,%,T or trailing history before T,PASS: generated without future rows,True
+load_pct_roll_std_6h,rolling,Trailing 6-hour load variability,%,T or trailing history before T,PASS: generated without future rows,True
+oil_temp_c_roll_mean_12h,rolling,Trailing 12-hour oil temperature mean,°C,T or trailing history before T,PASS: generated without future rows,True
+oil_temp_c_roll_max_12h,rolling,Trailing 12-hour oil temperature maximum,°C,T or trailing history before T,PASS: generated without future rows,True
+overload_count_12h,excursion,Count of load readings above 90% in trailing 12 hours,count,T or trailing history before T,PASS: generated without future rows,True
+load_temp_ratio,interaction,Load divided by oil temperature,derived ratio,T or trailing history before T,PASS: generated without future rows,True
+voltage_dev_kv,baseline,Voltage deviation from expanding asset baseline,kV,T or trailing history before T,PASS: generated without future rows,True

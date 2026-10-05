@@ -33,3 +33,6 @@ GridWatch is a portfolio-quality, responsive presentation site for a student-lev
 - `TODO.md`: acceptance outcomes.
 - `PHASE_1_DATASET_VALIDATION.md`: dataset-selection gate, validation protocol, target rules, leakage controls, and feature-engineering strategy.
 - `PHASE_2_DATA_DICTIONARY_AND_MODEL_SPEC.md`: data dictionary contract, preprocessing, EDA, baseline-model protocol, and feature-engineering specification.
+- `scripts/phase3_pipeline.py`: fixed-seed synthetic transformer-sensor generator, preprocessing, EDA plots, feature engineering, and baseline evaluation.
+- `artifacts/phase3/`: generated synthetic data, processed features, EDA images, metrics, risk predictions, and Phase 3 execution report.
+- `requirements-phase3.txt`: pinned Python dependencies for rerunning the Phase 3 pipeline.

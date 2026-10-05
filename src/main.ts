@@ -22,6 +22,16 @@ type RiskRow = {
   next: string
 }
 
+type ModelMetric = {
+  model: string
+  precision: string
+  recall: string
+  f1: string
+  roc_auc: string
+  pr_auc: string
+  accuracy: string
+}
+
 const phases: Phase[] = [
   {
     id: 'data', number: '01', name: 'Data readiness', eyebrow: 'FOUNDATION',
@@ -49,6 +59,19 @@ const riskRows: RiskRow[] = [
   { asset: 'TX-014', location: 'Sample / North feeder', risk: 0.72, band: 'Elevated', status: 'Watch', priority: 'P1', rationale: 'Illustrative combination of recent load variability and a rising thermal trend. No real asset data is shown.', next: 'Review recent measurements and maintenance history with an engineer.' },
   { asset: 'TX-007', location: 'Sample / Industrial loop', risk: 0.44, band: 'Moderate', status: 'Stable', priority: 'P2', rationale: 'Illustrative mid-band signal. The interface intentionally withholds any claim about actual sensor availability.', next: 'Keep in routine review; confirm data quality before comparing assets.' },
   { asset: 'TX-021', location: 'Sample / East substation', risk: 0.18, band: 'Lower', status: 'Healthy', priority: 'P3', rationale: 'Illustrative lower-risk row, not a prediction or evidence of normal operation.', next: 'Continue scheduled monitoring and document the confidence context.' },
+]
+
+const phase3Metrics: ModelMetric[] = [
+  { model: 'Logistic Regression', precision: '0.655', recall: '0.662', f1: '0.659', roc_auc: '0.652', pr_auc: '0.648', accuracy: '0.636' },
+  { model: 'Random Forest', precision: '0.618', recall: '0.681', f1: '0.648', roc_auc: '0.592', pr_auc: '0.608', accuracy: '0.607' },
+]
+
+const syntheticRiskRows = [
+  { asset: 'TX-010', probability: '72.9%', band: 'Elevated', health: 'Watch', priority: 'P1' },
+  { asset: 'TX-011', probability: '63.7%', band: 'Moderate', health: 'Stable', priority: 'P2' },
+  { asset: 'TX-008', probability: '58.7%', band: 'Moderate', health: 'Stable', priority: 'P3' },
+  { asset: 'TX-009', probability: '57.3%', band: 'Moderate', health: 'Stable', priority: 'P4' },
+  { asset: 'TX-007', probability: '55.7%', band: 'Moderate', health: 'Stable', priority: 'P5' },
 ]
 
 const icon = (name: string) => {
@@ -163,6 +186,22 @@ app.innerHTML = `
           <div class="table-disclaimer"><span>◎</span><p>Illustrative only. No actual transformer readings, labels, model metrics, or engineering recommendations are asserted here.</p></div>
         </section>
 
+        <section class="model-lab-section section-pad" id="model-lab">
+          <div class="section-kicker"><span>05A</span><span>Phase 3 / model lab</span></div>
+          <div class="model-lab-head"><div><h2>Train, compare,<br/><em>stay honest.</em></h2></div><p>These tabs are powered by the fixed-seed synthetic pipeline in <code>artifacts/phase3</code>. They demonstrate the dashboard workflow—not real utility performance.</p></div>
+          <div class="model-tabs" role="tablist" aria-label="Phase 3 model tabs"><button class="model-tab active" role="tab" aria-selected="true" aria-controls="evaluation-panel" data-model-panel="evaluation-panel">Model evaluation</button><button class="model-tab" role="tab" aria-selected="false" aria-controls="risk-panel" data-model-panel="risk-panel">Risk prediction</button></div>
+          <div class="model-panel active" id="evaluation-panel" role="tabpanel">
+            <div class="model-meta"><span class="demo-chip">SYNTHETIC DEMO / SEED 42</span><span>12 assets · 5,760 rows · 25 engineered features · 1-hour sampling contract</span></div>
+            <div class="metric-table-wrap"><table class="metric-table"><thead><tr><th>Model</th><th>Precision</th><th>Recall</th><th>F1</th><th>ROC-AUC</th><th>PR-AUC</th><th>Accuracy</th></tr></thead><tbody>${phase3Metrics.map((metric) => `<tr><td><strong>${metric.model}</strong></td><td>${metric.precision}</td><td class="metric-highlight">${metric.recall}</td><td>${metric.f1}</td><td>${metric.roc_auc}</td><td>${metric.pr_auc}</td><td>${metric.accuracy}</td></tr>`).join('')}</tbody></table></div>
+            <div class="evaluation-foot"><div><span class="tiny-label">PRIMARY READ</span><strong>Recall is slightly higher for Random Forest in this demo.</strong></div><div><span class="tiny-label">SPLIT</span><strong>Chronological / 60% train · 20% validation · 20% test</strong></div><div><span class="tiny-label">CAUTION</span><strong>Metrics are not transferable to real assets.</strong></div></div>
+          </div>
+          <div class="model-panel" id="risk-panel" role="tabpanel" hidden>
+            <div class="model-meta"><span class="demo-chip">RANDOM FOREST / TEST-PERIOD SNAPSHOT</span><span>Risk probabilities shown for synthetic demo assets only.</span></div>
+            <div class="prediction-grid">${syntheticRiskRows.map((row) => `<article class="prediction-card"><div class="prediction-top"><span>${row.asset}</span><b>${row.priority}</b></div><div class="prediction-probability">${row.probability}</div><div class="prediction-bar"><i style="width:${row.probability}"></i></div><div class="prediction-bottom"><span class="band-label ${row.band.toLowerCase()}">${row.band}</span><span>${row.health}</span></div></article>`).join('')}</div>
+            <div class="prediction-note"><span>↳</span><strong>Decision support, not diagnosis.</strong><p>Use the risk band to prioritise review of the underlying measurements, data quality, and maintenance history—not to trigger autonomous action.</p></div>
+          </div>
+        </section>
+
         <section class="boundaries section-pad" id="boundaries">
           <div class="section-kicker"><span>06</span><span>Scope / boundaries</span></div>
           <div class="boundaries-grid">
@@ -215,6 +254,23 @@ document.querySelectorAll<HTMLButtonElement>('.row-toggle').forEach((button) => 
     const isVisible = rationaleRow.classList.toggle('visible')
     currentRow.classList.toggle('expanded', isVisible)
     button.setAttribute('aria-expanded', String(isVisible))
+  })
+})
+
+document.querySelectorAll<HTMLButtonElement>('.model-tab').forEach((tab) => {
+  tab.addEventListener('click', () => {
+    const panelId = tab.dataset.modelPanel
+    if (!panelId) return
+    document.querySelectorAll<HTMLButtonElement>('.model-tab').forEach((item) => {
+      const active = item === tab
+      item.classList.toggle('active', active)
+      item.setAttribute('aria-selected', String(active))
+    })
+    document.querySelectorAll<HTMLDivElement>('.model-panel').forEach((panel) => {
+      const active = panel.id === panelId
+      panel.classList.toggle('active', active)
+      panel.hidden = !active
+    })
   })
 })
 

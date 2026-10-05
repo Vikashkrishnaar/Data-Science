@@ -1,0 +1,31 @@
+{
+  "rows": 5760,
+  "assets": 12,
+  "features": [
+    "voltage_kv",
+    "current_a",
+    "load_pct",
+    "ambient_temp_c",
+    "oil_temp_c",
+    "winding_temp_c",
+    "power_factor",
+    "frequency_hz"
+  ],
+  "collection_start": "2025-01-01T00:00:00+00:00",
+  "collection_end": "2025-01-20T23:00:00+00:00",
+  "missing_fraction": {
+    "voltage_kv": 0.0,
+    "current_a": 0.0,
+    "load_pct": 0.0095,
+    "ambient_temp_c": 0.0,
+    "oil_temp_c": 0.0137,
+    "winding_temp_c": 0.0,
+    "power_factor": 0.0054,
+    "frequency_hz": 0.0
+  },
+  "failure_events": 213,
+  "labelled_rows": 5472,
+  "label_positive_rate": 0.6106,
+  "sampling_frequency": "1 hour (synthetic generation contract)",
+  "note": "Synthetic data generated with seed 42; values are not measurements from a real transformer fleet."
+}
