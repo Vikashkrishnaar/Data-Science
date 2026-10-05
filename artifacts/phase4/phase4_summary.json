@@ -1,0 +1,34 @@
+{
+  "dataset": "synthetic_transformer_sensor_demo",
+  "seed": 42,
+  "assets_prioritised": 12,
+  "explainability": {
+    "global_method": "Random Forest impurity + held-out permutation importance",
+    "local_method": "standardised Logistic Regression coefficient contributions",
+    "shap_available": false,
+    "top_features": [
+      "maintenance_age_days",
+      "transformer_age_years",
+      "oil_temp_c_roll_max_12h",
+      "load_pct_roll_std_6h",
+      "oil_temp_c_roll_mean_12h"
+    ]
+  },
+  "health_score": {
+    "formula": "0.55 risk component + 0.20 thermal component + 0.20 loading component + 0.05 data-quality component",
+    "bands": {
+      "Healthy": "75\u2013100",
+      "Watch": "50\u201374.9",
+      "Action": "0\u201349.9"
+    },
+    "counts": {
+      "Watch": 6,
+      "Healthy": 6
+    }
+  },
+  "prioritisation": {
+    "sort": "risk probability descending, then health score ascending",
+    "priority_range": "P1\u2013P12"
+  },
+  "disclaimer": "Synthetic demonstration only. The health score is a transparent prototype heuristic, not an engineering standard or diagnosis."
+}

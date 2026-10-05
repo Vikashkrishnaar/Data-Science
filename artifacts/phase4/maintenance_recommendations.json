@@ -1,0 +1,134 @@
+[
+  {
+    "asset_id":"TX-010",
+    "timestamp":"2025-01-19T23:00:00.000Z",
+    "risk_band":"Elevated",
+    "health_band":"Watch",
+    "inspection_priority":"P1",
+    "risk_probability":0.7292,
+    "maintenance_suggestions":[
+      "Prioritise engineering inspection of recent operating history and maintenance records."
+    ]
+  },
+  {
+    "asset_id":"TX-011",
+    "timestamp":"2025-01-19T23:00:00.000Z",
+    "risk_band":"Moderate",
+    "health_band":"Watch",
+    "inspection_priority":"P2",
+    "risk_probability":0.6367,
+    "maintenance_suggestions":[
+      "Review recent trend windows and confirm data quality before changing inspection cadence."
+    ]
+  },
+  {
+    "asset_id":"TX-008",
+    "timestamp":"2025-01-19T23:00:00.000Z",
+    "risk_band":"Moderate",
+    "health_band":"Watch",
+    "inspection_priority":"P3",
+    "risk_probability":0.5873,
+    "maintenance_suggestions":[
+      "Review recent trend windows and confirm data quality before changing inspection cadence."
+    ]
+  },
+  {
+    "asset_id":"TX-009",
+    "timestamp":"2025-01-19T23:00:00.000Z",
+    "risk_band":"Moderate",
+    "health_band":"Watch",
+    "inspection_priority":"P4",
+    "risk_probability":0.5735,
+    "maintenance_suggestions":[
+      "Review recent trend windows and confirm data quality before changing inspection cadence."
+    ]
+  },
+  {
+    "asset_id":"TX-007",
+    "timestamp":"2025-01-19T23:00:00.000Z",
+    "risk_band":"Moderate",
+    "health_band":"Watch",
+    "inspection_priority":"P5",
+    "risk_probability":0.5569,
+    "maintenance_suggestions":[
+      "Review recent trend windows and confirm data quality before changing inspection cadence."
+    ]
+  },
+  {
+    "asset_id":"TX-002",
+    "timestamp":"2025-01-19T23:00:00.000Z",
+    "risk_band":"Moderate",
+    "health_band":"Watch",
+    "inspection_priority":"P6",
+    "risk_probability":0.4559,
+    "maintenance_suggestions":[
+      "Review recent trend windows and confirm data quality before changing inspection cadence."
+    ]
+  },
+  {
+    "asset_id":"TX-012",
+    "timestamp":"2025-01-19T23:00:00.000Z",
+    "risk_band":"Moderate",
+    "health_band":"Healthy",
+    "inspection_priority":"P7",
+    "risk_probability":0.4554,
+    "maintenance_suggestions":[
+      "Review recent trend windows and confirm data quality before changing inspection cadence."
+    ]
+  },
+  {
+    "asset_id":"TX-005",
+    "timestamp":"2025-01-19T23:00:00.000Z",
+    "risk_band":"Moderate",
+    "health_band":"Healthy",
+    "inspection_priority":"P8",
+    "risk_probability":0.4483,
+    "maintenance_suggestions":[
+      "Continue routine monitoring; retain this row as a comparison baseline."
+    ]
+  },
+  {
+    "asset_id":"TX-006",
+    "timestamp":"2025-01-19T23:00:00.000Z",
+    "risk_band":"Moderate",
+    "health_band":"Healthy",
+    "inspection_priority":"P9",
+    "risk_probability":0.4385,
+    "maintenance_suggestions":[
+      "Continue routine monitoring; retain this row as a comparison baseline."
+    ]
+  },
+  {
+    "asset_id":"TX-003",
+    "timestamp":"2025-01-19T23:00:00.000Z",
+    "risk_band":"Moderate",
+    "health_band":"Healthy",
+    "inspection_priority":"P10",
+    "risk_probability":0.4186,
+    "maintenance_suggestions":[
+      "Continue routine monitoring; retain this row as a comparison baseline."
+    ]
+  },
+  {
+    "asset_id":"TX-001",
+    "timestamp":"2025-01-19T23:00:00.000Z",
+    "risk_band":"Moderate",
+    "health_band":"Healthy",
+    "inspection_priority":"P11",
+    "risk_probability":0.39,
+    "maintenance_suggestions":[
+      "Continue routine monitoring; retain this row as a comparison baseline."
+    ]
+  },
+  {
+    "asset_id":"TX-004",
+    "timestamp":"2025-01-19T23:00:00.000Z",
+    "risk_band":"Moderate",
+    "health_band":"Healthy",
+    "inspection_priority":"P12",
+    "risk_probability":0.3733,
+    "maintenance_suggestions":[
+      "Continue routine monitoring; retain this row as a comparison baseline."
+    ]
+  }
+]

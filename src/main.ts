@@ -74,6 +74,29 @@ const syntheticRiskRows = [
   { asset: 'TX-007', probability: '55.7%', band: 'Moderate', health: 'Stable', priority: 'P5' },
 ]
 
+const phase4Features = [
+  { name: 'maintenance_age_days', value: '26.6%' },
+  { name: 'transformer_age_years', value: '10.3%' },
+  { name: 'oil_temp_c_roll_max_12h', value: '7.7%' },
+  { name: 'load_pct_roll_std_6h', value: '4.6%' },
+  { name: 'oil_temp_c_roll_mean_12h', value: '4.0%' },
+]
+
+const phase4LocalFactors = [
+  { name: 'voltage_dev_kv', direction: 'reduces risk' },
+  { name: 'voltage_kv', direction: 'raises risk' },
+  { name: 'transformer_age_years', direction: 'raises risk' },
+  { name: 'maintenance_age_days', direction: 'raises risk' },
+]
+
+const phase4Fleet = [
+  { asset: 'TX-010', risk: '72.9%', health: '59.9', band: 'Watch', priority: 'P1', suggestion: 'Prioritise engineering inspection of recent operating history and maintenance records.' },
+  { asset: 'TX-011', risk: '63.7%', health: '65.0', band: 'Watch', priority: 'P2', suggestion: 'Review recent trend windows and confirm data quality before changing inspection cadence.' },
+  { asset: 'TX-008', risk: '58.7%', health: '67.7', band: 'Watch', priority: 'P3', suggestion: 'Review recent trend windows and confirm data quality before changing inspection cadence.' },
+  { asset: 'TX-009', risk: '57.3%', health: '68.5', band: 'Watch', priority: 'P4', suggestion: 'Review recent trend windows and confirm data quality before changing inspection cadence.' },
+  { asset: 'TX-007', risk: '55.7%', health: '69.4', band: 'Watch', priority: 'P5', suggestion: 'Review recent trend windows and confirm data quality before changing inspection cadence.' },
+]
+
 const icon = (name: string) => {
   const paths: Record<string, string> = {
     arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
@@ -202,6 +225,22 @@ app.innerHTML = `
           </div>
         </section>
 
+        <section class="review-lab-section section-pad" id="review-lab">
+          <div class="section-kicker"><span>05B</span><span>Phase 4 / review layer</span></div>
+          <div class="review-lab-head"><div><h2>Explain the signal.<br/><em>Then decide.</em></h2></div><p>Global importance, local reason codes, health scoring, and maintenance-oriented suggestions are shown here as synthetic demonstrations. They support review; they do not diagnose or control equipment.</p></div>
+          <div class="review-tabs" role="tablist" aria-label="Phase 4 review tabs"><button class="review-tab active" role="tab" aria-selected="true" aria-controls="explainability-panel" data-review-panel="explainability-panel">Explainability</button><button class="review-tab" role="tab" aria-selected="false" aria-controls="maintenance-panel" data-review-panel="maintenance-panel">Maintenance recommendations</button></div>
+          <div class="review-panel active" id="explainability-panel" role="tabpanel">
+            <div class="review-meta"><span class="demo-chip">SYNTHETIC DEMO / FEATURE IMPORTANCE</span><span>Random Forest global importance + logistic local contribution proxy</span></div>
+            <div class="explain-grid"><div class="importance-list"><div class="review-label">TOP GLOBAL FEATURES</div>${phase4Features.map((feature) => `<div class="importance-row"><span>${feature.name}</span><i><b style="width:${feature.value}"></b></i><strong>${feature.value}</strong></div>`).join('')}</div><div class="local-explain-card"><div class="review-label">LOCAL REASON CODES / TX-010</div><div class="local-risk"><strong>72.9%</strong><span>Elevated / P1</span></div>${phase4LocalFactors.map((factor) => `<div class="factor-row"><span>${factor.name}</span><b class="${factor.direction === 'raises risk' ? 'raises' : 'reduces'}">${factor.direction}</b></div>`).join('')}<p>Method note: standardised Logistic Regression coefficient contributions. These are not SHAP values.</p></div></div>
+            <div class="review-note"><span>↳</span><strong>Explainability is a review aid.</strong><p>Check whether the contributing signals are physically plausible, available before the prediction timestamp, and supported by the underlying data-quality record.</p></div>
+          </div>
+          <div class="review-panel" id="maintenance-panel" role="tabpanel" hidden>
+            <div class="review-meta"><span class="demo-chip">FLEET PRIORITISATION / P1–P5</span><span>Health score = risk, thermal, loading, and data-quality components</span></div>
+            <div class="maintenance-list">${phase4Fleet.map((row) => `<article class="maintenance-row"><div class="maintenance-rank"><b>${row.priority}</b><span>${row.asset}</span></div><div class="maintenance-risk"><strong>${row.risk}</strong><span>risk probability</span></div><div class="maintenance-health"><strong>${row.health}</strong><span>health score</span></div><div class="maintenance-suggestion"><span>${row.band}</span><p>${row.suggestion}</p></div></article>`).join('')}</div>
+            <div class="review-note"><span>↳</span><strong>Suggested action, not an automatic work order.</strong><p>Use the ranking to focus engineering attention, verify recent measurements, and check maintenance history before changing inspection plans.</p></div>
+          </div>
+        </section>
+
         <section class="boundaries section-pad" id="boundaries">
           <div class="section-kicker"><span>06</span><span>Scope / boundaries</span></div>
           <div class="boundaries-grid">
@@ -267,6 +306,23 @@ document.querySelectorAll<HTMLButtonElement>('.model-tab').forEach((tab) => {
       item.setAttribute('aria-selected', String(active))
     })
     document.querySelectorAll<HTMLDivElement>('.model-panel').forEach((panel) => {
+      const active = panel.id === panelId
+      panel.classList.toggle('active', active)
+      panel.hidden = !active
+    })
+  })
+})
+
+document.querySelectorAll<HTMLButtonElement>('.review-tab').forEach((tab) => {
+  tab.addEventListener('click', () => {
+    const panelId = tab.dataset.reviewPanel
+    if (!panelId) return
+    document.querySelectorAll<HTMLButtonElement>('.review-tab').forEach((item) => {
+      const active = item === tab
+      item.classList.toggle('active', active)
+      item.setAttribute('aria-selected', String(active))
+    })
+    document.querySelectorAll<HTMLDivElement>('.review-panel').forEach((panel) => {
       const active = panel.id === panelId
       panel.classList.toggle('active', active)
       panel.hidden = !active

@@ -36,3 +36,5 @@ GridWatch is a portfolio-quality, responsive presentation site for a student-lev
 - `scripts/phase3_pipeline.py`: fixed-seed synthetic transformer-sensor generator, preprocessing, EDA plots, feature engineering, and baseline evaluation.
 - `artifacts/phase3/`: generated synthetic data, processed features, EDA images, metrics, risk predictions, and Phase 3 execution report.
 - `requirements-phase3.txt`: pinned Python dependencies for rerunning the Phase 3 pipeline.
+- `scripts/phase4_explainability.py`: global feature importance, local reason codes, transparent health scoring, maintenance suggestions, and fleet prioritisation.
+- `artifacts/phase4/`: explainability rankings, local factors, health assessment, maintenance recommendations, prioritisation outputs, plots, and Phase 4 report.

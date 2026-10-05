@@ -1,0 +1,398 @@
+[
+  {
+    "asset_id": "TX-006",
+    "timestamp": "2025-01-19T23:00:00+00:00",
+    "risk_probability": 0.4385,
+    "top_factors": [
+      {
+        "feature": "voltage_kv",
+        "contribution": -0.9283,
+        "direction": "reduces risk"
+      },
+      {
+        "feature": "voltage_dev_kv",
+        "contribution": 0.9237,
+        "direction": "raises risk"
+      },
+      {
+        "feature": "oil_temp_c_roll_mean_12h",
+        "contribution": -0.8348,
+        "direction": "reduces risk"
+      },
+      {
+        "feature": "oil_temp_c_roll_max_12h",
+        "contribution": 0.2256,
+        "direction": "raises risk"
+      },
+      {
+        "feature": "load_pct_roll_std_6h",
+        "contribution": -0.2084,
+        "direction": "reduces risk"
+      }
+    ],
+    "explainability_method": "standardised logistic coefficient contribution; not SHAP"
+  },
+  {
+    "asset_id": "TX-010",
+    "timestamp": "2025-01-19T23:00:00+00:00",
+    "risk_probability": 0.7292,
+    "top_factors": [
+      {
+        "feature": "voltage_dev_kv",
+        "contribution": -1.8385,
+        "direction": "reduces risk"
+      },
+      {
+        "feature": "voltage_kv",
+        "contribution": 1.5596,
+        "direction": "raises risk"
+      },
+      {
+        "feature": "oil_temp_c_roll_mean_12h",
+        "contribution": -0.4734,
+        "direction": "reduces risk"
+      },
+      {
+        "feature": "transformer_age_years",
+        "contribution": 0.3686,
+        "direction": "raises risk"
+      },
+      {
+        "feature": "maintenance_age_days",
+        "contribution": 0.3225,
+        "direction": "raises risk"
+      }
+    ],
+    "explainability_method": "standardised logistic coefficient contribution; not SHAP"
+  },
+  {
+    "asset_id": "TX-009",
+    "timestamp": "2025-01-19T23:00:00+00:00",
+    "risk_probability": 0.5735,
+    "top_factors": [
+      {
+        "feature": "voltage_kv",
+        "contribution": 3.2979,
+        "direction": "raises risk"
+      },
+      {
+        "feature": "voltage_dev_kv",
+        "contribution": -3.1524,
+        "direction": "reduces risk"
+      },
+      {
+        "feature": "oil_temp_c_roll_mean_12h",
+        "contribution": -0.6534,
+        "direction": "reduces risk"
+      },
+      {
+        "feature": "transformer_age_years",
+        "contribution": 0.2633,
+        "direction": "raises risk"
+      },
+      {
+        "feature": "maintenance_age_days",
+        "contribution": 0.2316,
+        "direction": "raises risk"
+      }
+    ],
+    "explainability_method": "standardised logistic coefficient contribution; not SHAP"
+  },
+  {
+    "asset_id": "TX-008",
+    "timestamp": "2025-01-19T23:00:00+00:00",
+    "risk_probability": 0.5873,
+    "top_factors": [
+      {
+        "feature": "voltage_kv",
+        "contribution": 1.4354,
+        "direction": "raises risk"
+      },
+      {
+        "feature": "voltage_dev_kv",
+        "contribution": -1.4168,
+        "direction": "reduces risk"
+      },
+      {
+        "feature": "oil_temp_c_roll_mean_12h",
+        "contribution": -0.6017,
+        "direction": "reduces risk"
+      },
+      {
+        "feature": "load_pct_roll_std_6h",
+        "contribution": -0.25,
+        "direction": "reduces risk"
+      },
+      {
+        "feature": "oil_temp_c_roll_max_12h",
+        "contribution": 0.1793,
+        "direction": "raises risk"
+      }
+    ],
+    "explainability_method": "standardised logistic coefficient contribution; not SHAP"
+  },
+  {
+    "asset_id": "TX-007",
+    "timestamp": "2025-01-19T23:00:00+00:00",
+    "risk_probability": 0.5569,
+    "top_factors": [
+      {
+        "feature": "oil_temp_c_roll_mean_12h",
+        "contribution": -0.7511,
+        "direction": "reduces risk"
+      },
+      {
+        "feature": "voltage_dev_kv",
+        "contribution": 0.3682,
+        "direction": "raises risk"
+      },
+      {
+        "feature": "load_pct_roll_std_6h",
+        "contribution": -0.2503,
+        "direction": "reduces risk"
+      },
+      {
+        "feature": "voltage_kv",
+        "contribution": -0.1989,
+        "direction": "reduces risk"
+      },
+      {
+        "feature": "oil_temp_c_roll_max_12h",
+        "contribution": 0.1782,
+        "direction": "raises risk"
+      }
+    ],
+    "explainability_method": "standardised logistic coefficient contribution; not SHAP"
+  },
+  {
+    "asset_id": "TX-005",
+    "timestamp": "2025-01-19T23:00:00+00:00",
+    "risk_probability": 0.4483,
+    "top_factors": [
+      {
+        "feature": "voltage_kv",
+        "contribution": -1.5992,
+        "direction": "reduces risk"
+      },
+      {
+        "feature": "voltage_dev_kv",
+        "contribution": 1.5223,
+        "direction": "raises risk"
+      },
+      {
+        "feature": "oil_temp_c_roll_mean_12h",
+        "contribution": -0.9289,
+        "direction": "reduces risk"
+      },
+      {
+        "feature": "oil_temp_c_roll_max_12h",
+        "contribution": 0.3859,
+        "direction": "raises risk"
+      },
+      {
+        "feature": "oil_temp_c_lag_1",
+        "contribution": 0.3644,
+        "direction": "raises risk"
+      }
+    ],
+    "explainability_method": "standardised logistic coefficient contribution; not SHAP"
+  },
+  {
+    "asset_id": "TX-004",
+    "timestamp": "2025-01-19T23:00:00+00:00",
+    "risk_probability": 0.3733,
+    "top_factors": [
+      {
+        "feature": "oil_temp_c_roll_mean_12h",
+        "contribution": -0.8878,
+        "direction": "reduces risk"
+      },
+      {
+        "feature": "oil_temp_c_lag_1",
+        "contribution": 0.3844,
+        "direction": "raises risk"
+      },
+      {
+        "feature": "oil_temp_c_roll_max_12h",
+        "contribution": 0.3697,
+        "direction": "raises risk"
+      },
+      {
+        "feature": "transformer_age_years",
+        "contribution": -0.2633,
+        "direction": "reduces risk"
+      },
+      {
+        "feature": "oil_temp_c_rate_1h",
+        "contribution": -0.2411,
+        "direction": "reduces risk"
+      }
+    ],
+    "explainability_method": "standardised logistic coefficient contribution; not SHAP"
+  },
+  {
+    "asset_id": "TX-003",
+    "timestamp": "2025-01-19T23:00:00+00:00",
+    "risk_probability": 0.4186,
+    "top_factors": [
+      {
+        "feature": "voltage_dev_kv",
+        "contribution": 1.2715,
+        "direction": "raises risk"
+      },
+      {
+        "feature": "voltage_kv",
+        "contribution": -1.1434,
+        "direction": "reduces risk"
+      },
+      {
+        "feature": "oil_temp_c_roll_mean_12h",
+        "contribution": -0.978,
+        "direction": "reduces risk"
+      },
+      {
+        "feature": "oil_temp_c_roll_max_12h",
+        "contribution": 0.4207,
+        "direction": "raises risk"
+      },
+      {
+        "feature": "oil_temp_c_lag_1",
+        "contribution": 0.4188,
+        "direction": "raises risk"
+      }
+    ],
+    "explainability_method": "standardised logistic coefficient contribution; not SHAP"
+  },
+  {
+    "asset_id": "TX-002",
+    "timestamp": "2025-01-19T23:00:00+00:00",
+    "risk_probability": 0.4559,
+    "top_factors": [
+      {
+        "feature": "voltage_kv",
+        "contribution": 6.8483,
+        "direction": "raises risk"
+      },
+      {
+        "feature": "voltage_dev_kv",
+        "contribution": -6.3935,
+        "direction": "reduces risk"
+      },
+      {
+        "feature": "oil_temp_c_roll_mean_12h",
+        "contribution": -0.8358,
+        "direction": "reduces risk"
+      },
+      {
+        "feature": "transformer_age_years",
+        "contribution": -0.4739,
+        "direction": "reduces risk"
+      },
+      {
+        "feature": "maintenance_age_days",
+        "contribution": -0.4044,
+        "direction": "reduces risk"
+      }
+    ],
+    "explainability_method": "standardised logistic coefficient contribution; not SHAP"
+  },
+  {
+    "asset_id": "TX-001",
+    "timestamp": "2025-01-19T23:00:00+00:00",
+    "risk_probability": 0.39,
+    "top_factors": [
+      {
+        "feature": "voltage_dev_kv",
+        "contribution": 1.6198,
+        "direction": "raises risk"
+      },
+      {
+        "feature": "voltage_kv",
+        "contribution": -1.449,
+        "direction": "reduces risk"
+      },
+      {
+        "feature": "oil_temp_c_roll_mean_12h",
+        "contribution": -0.7583,
+        "direction": "reduces risk"
+      },
+      {
+        "feature": "transformer_age_years",
+        "contribution": -0.5792,
+        "direction": "reduces risk"
+      },
+      {
+        "feature": "oil_temp_c_lag_1",
+        "contribution": 0.5049,
+        "direction": "raises risk"
+      }
+    ],
+    "explainability_method": "standardised logistic coefficient contribution; not SHAP"
+  },
+  {
+    "asset_id": "TX-011",
+    "timestamp": "2025-01-19T23:00:00+00:00",
+    "risk_probability": 0.6367,
+    "top_factors": [
+      {
+        "feature": "voltage_dev_kv",
+        "contribution": -0.499,
+        "direction": "reduces risk"
+      },
+      {
+        "feature": "transformer_age_years",
+        "contribution": 0.4739,
+        "direction": "raises risk"
+      },
+      {
+        "feature": "voltage_kv",
+        "contribution": 0.4377,
+        "direction": "raises risk"
+      },
+      {
+        "feature": "oil_temp_c_roll_mean_12h",
+        "contribution": -0.4217,
+        "direction": "reduces risk"
+      },
+      {
+        "feature": "maintenance_age_days",
+        "contribution": 0.4133,
+        "direction": "raises risk"
+      }
+    ],
+    "explainability_method": "standardised logistic coefficient contribution; not SHAP"
+  },
+  {
+    "asset_id": "TX-012",
+    "timestamp": "2025-01-19T23:00:00+00:00",
+    "risk_probability": 0.4554,
+    "top_factors": [
+      {
+        "feature": "voltage_kv",
+        "contribution": -0.7781,
+        "direction": "reduces risk"
+      },
+      {
+        "feature": "transformer_age_years",
+        "contribution": 0.5792,
+        "direction": "raises risk"
+      },
+      {
+        "feature": "maintenance_age_days",
+        "contribution": 0.5042,
+        "direction": "raises risk"
+      },
+      {
+        "feature": "voltage_dev_kv",
+        "contribution": 0.4748,
+        "direction": "raises risk"
+      },
+      {
+        "feature": "oil_temp_c_roll_mean_12h",
+        "contribution": -0.3869,
+        "direction": "reduces risk"
+      }
+    ],
+    "explainability_method": "standardised logistic coefficient contribution; not SHAP"
+  }
+]
