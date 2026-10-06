@@ -122,6 +122,18 @@ const realFeatureGroups = [
   ['Data quality / recency', '3', 'observed gases, missing gases, hours since previous record'],
 ]
 
+const realAnomalyAssets = [
+  { asset: 'TX-M', p95: '0.394', proxy: '35.73%', reason: 'ethane_ppm_log1p' },
+  { asset: 'TX-I', p95: '0.391', proxy: '19.43%', reason: 'carbon_monoxide_ppm_delta' },
+  { asset: 'TX-J', p95: '0.358', proxy: '20.46%', reason: 'oxygen_ppm_roll_std_3' },
+  { asset: 'TX-F', p95: '0.305', proxy: '6.71%', reason: 'ethane_ppm_roll_std_3' },
+  { asset: 'TX-L', p95: '0.195', proxy: '0.29%', reason: 'hydrogen_ppm_delta' },
+]
+
+const realAnomalyReasons = [
+  ['ethane_ppm_roll_std_3', '14.18%'], ['hydrogen_ppm_delta', '12.14%'], ['ethylene_ppm_delta', '9.56%'], ['ethane_ppm_log1p', '8.37%'], ['oxygen_ppm_roll_std_3', '6.26%'],
+]
+
 const icon = (name: string) => {
   const paths: Record<string, string> = {
     arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
@@ -143,7 +155,7 @@ app.innerHTML = `
         <span class="brand-mark"><i></i><i></i><b></b></span>
         <span class="brand-name">Grid<span>Watch</span></span>
       </a>
-      <div class="topbar-meta"><span class="live-dot"></span><span>Real data / phase 08 review</span><span class="meta-divider"></span><span>Decision support, not control</span></div>
+      <div class="topbar-meta"><span class="live-dot"></span><span>Real data / phase 09B review</span><span class="meta-divider"></span><span>Decision support, not control</span></div>
       <a class="rail-link" href="#next-phase">Next phase ${icon('arrow')}</a>
     </header>
 
@@ -168,7 +180,7 @@ app.innerHTML = `
             <div class="hero-note"><span class="note-mark">↳</span> No autonomous control. No fabricated labels. No novelty claims.</div>
           </div>
           <div class="hero-instrument" aria-label="Prototype status panel">
-            <div class="instrument-head"><span>READINESS / 08</span><span class="instrument-status"><i></i> REAL DATA LOADED</span></div>
+            <div class="instrument-head"><span>READINESS / 09B</span><span class="instrument-status"><i></i> ANOMALY REVIEW READY</span></div>
             <div class="dial-wrap">
               <div class="dial"><div class="dial-inner"><span class="dial-value">01</span><span class="dial-caption">phase</span></div><span class="dial-tick tick-a"></span><span class="dial-tick tick-b"></span><span class="dial-tick tick-c"></span></div>
               <div class="instrument-copy"><span class="tiny-label">CURRENT QUESTION</span><strong>What can this<br/>dataset support?</strong><span class="instrument-sub">Real DGA data is validated. The supervised target gate remains open.</span></div>
@@ -246,8 +258,16 @@ app.innerHTML = `
           <div class="target-gate-card"><div><span class="real-chip warning">APPROVAL GATE / NO REAL TARGET</span><h3><code>failure_24h</code> cannot be trained from this source yet.</h3><p>No failure, fault, health, maintenance-outcome, outage, or event label exists in the validated data. The dashboard therefore shows real preprocessing and EDA, while supervised models, real metrics, error analysis, and supervised explainability remain intentionally locked.</p></div><div class="target-options"><span class="review-label">DOCUMENTED NEXT OPTIONS</span><strong>01 · Join an authoritative fault/event label table</strong><strong>02 · Approve unsupervised DGA anomaly detection</strong><strong>03 · Acquire labelled DGA diagnostic data</strong></div></div>
         </section>
 
+        <section class="anomaly-section section-pad" id="anomaly-results">
+          <div class="section-kicker"><span>05B</span><span>Phase 9B / real anomaly screening</span></div>
+          <div class="anomaly-head"><div><h2>Screen the unusual,<br/><em>not the failed.</em></h2></div><p>The approved unsupervised path scores 203,214 real feature rows with Isolation Forest. The top 5% is an analysis proxy for unusual DGA behaviour—not a probability of failure, fault, health, or maintenance need.</p></div>
+          <div class="anomaly-stat-grid"><div><strong>203,214</strong><span>rows scored</span></div><div><strong>5.00%</strong><span>top-5% proxy rate</span></div><div><strong>13</strong><span>transformers compared</span></div><div><strong>42</strong><span>fixed seed</span></div></div>
+          <div class="anomaly-grid"><div class="anomaly-card"><div class="real-card-head"><span class="review-label">ASSET REVIEW QUEUE / P95 SCORE</span><span class="real-chip warning">UNSUPERVISED</span></div><div class="anomaly-list">${realAnomalyAssets.map((row) => `<div class="anomaly-row"><div><strong>${row.asset}</strong><span>strongest deviation: ${row.reason}</span></div><b>${row.p95}</b><em>${row.proxy} proxy</em></div>`).join('')}</div></div><div class="anomaly-card"><div class="real-card-head"><span class="review-label">TOP REASON CODES / TOP-5% ROWS</span><span class="real-chip warning">NOT CAUSAL</span></div><div class="reason-list">${realAnomalyReasons.map((row) => `<div class="reason-row"><span>${row[0]}</span><strong>${row[1]}</strong><i><b style="width:${parseFloat(row[1]) * 5.2}%"></b></i></div>`).join('')}</div><p class="real-footnote">Reason codes are robust deviation indicators. They identify unusual features relative to transformer history; they do not explain a physical cause.</p></div></div>
+          <div class="anomaly-note"><span>↳</span><strong>Human review remains required.</strong><p>High anomaly scores may reflect unusual gas behaviour, missingness, maintenance/oil-processing resets, regime changes, or measurement quality. No anomaly row is a failure label.</p></div>
+        </section>
+
         <section class="model-lab-section section-pad" id="model-lab">
-          <div class="section-kicker"><span>05B</span><span>Optional / synthetic model lab</span></div>
+          <div class="section-kicker"><span>05C</span><span>Optional / synthetic model lab</span></div>
           <div class="model-lab-head"><div><h2>Demonstrate the workflow,<br/><em>not the utility result.</em></h2></div><p>These tabs remain available as a fixed-seed synthetic demonstration. They are intentionally separated from the real-data evidence above and must not be read as performance on the 13-transformer source.</p></div>
           <div class="model-tabs" role="tablist" aria-label="Phase 3 model tabs"><button class="model-tab active" role="tab" aria-selected="true" aria-controls="evaluation-panel" data-model-panel="evaluation-panel">Model evaluation</button><button class="model-tab" role="tab" aria-selected="false" aria-controls="risk-panel" data-model-panel="risk-panel">Risk prediction</button></div>
           <div class="model-panel active" id="evaluation-panel" role="tabpanel">
@@ -263,7 +283,7 @@ app.innerHTML = `
         </section>
 
         <section class="review-lab-section section-pad" id="review-lab">
-          <div class="section-kicker"><span>05C</span><span>Optional / synthetic review layer</span></div>
+          <div class="section-kicker"><span>05D</span><span>Optional / synthetic review layer</span></div>
           <div class="review-lab-head"><div><h2>Explain the signal.<br/><em>Then decide.</em></h2></div><p>These explainability and maintenance views remain synthetic demonstrations until a real supervised target exists. They support review; they do not diagnose or control equipment.</p></div>
           <div class="review-tabs" role="tablist" aria-label="Phase 4 review tabs"><button class="review-tab active" role="tab" aria-selected="true" aria-controls="explainability-panel" data-review-panel="explainability-panel">Explainability</button><button class="review-tab" role="tab" aria-selected="false" aria-controls="maintenance-panel" data-review-panel="maintenance-panel">Maintenance recommendations</button></div>
           <div class="review-panel active" id="explainability-panel" role="tabpanel">
@@ -290,11 +310,11 @@ app.innerHTML = `
         <section class="timeline-section section-pad" id="progress">
           <div class="section-kicker"><span>07</span><span>Approval gates / progress</span></div>
           <div class="timeline-head"><div><h2>Progress is a<br/><em>permission.</em></h2></div><p>The master prompt is executed phase by phase. Each stop protects the next decision from being built on an unverified assumption.</p></div>
-          <div class="timeline"><div class="timeline-item current"><div class="timeline-marker"><span>01</span></div><div><span class="timeline-status">COMPLETE / REAL SOURCE VALIDATED</span><h3>Inspect and validate the dataset</h3><p>Real DGA data, provenance, schema, timestamps, missingness, phase coverage, and licensing are documented.</p></div><div class="timeline-gate">GATE 01<br/><strong>Source fit for DGA analysis</strong></div></div><div class="timeline-item current"><div class="timeline-marker"><span>02</span></div><div><span class="timeline-status">COMPLETE / EDA + FEATURES</span><h3>Explore, engineer, and define</h3><p>Real gas distributions, transformer coverage, and current/trailing feature groups are available; no event label was found.</p></div><div class="timeline-gate">GATE 02<br/><strong>Feature target decision</strong></div></div><div class="timeline-item"><div class="timeline-marker"><span>03</span></div><div><span class="timeline-status">BLOCKED / TARGET REQUIRED</span><h3>Model, explain, and prioritise</h3><p>Supervised modelling waits for an authoritative label table or explicit approval of an unsupervised DGA anomaly objective.</p></div><div class="timeline-gate">GATE 03<br/><strong>Target safe to interpret?</strong></div></div></div>
+          <div class="timeline"><div class="timeline-item current"><div class="timeline-marker"><span>01</span></div><div><span class="timeline-status">COMPLETE / REAL SOURCE VALIDATED</span><h3>Inspect and validate the dataset</h3><p>Real DGA data, provenance, schema, timestamps, missingness, phase coverage, and licensing are documented.</p></div><div class="timeline-gate">GATE 01<br/><strong>Source fit for DGA analysis</strong></div></div><div class="timeline-item current"><div class="timeline-marker"><span>02</span></div><div><span class="timeline-status">COMPLETE / EDA + FEATURES</span><h3>Explore, engineer, and define</h3><p>Real gas distributions, transformer coverage, and current/trailing feature groups are available; no event label was found.</p></div><div class="timeline-gate">GATE 02<br/><strong>Feature target decision</strong></div></div><div class="timeline-item current"><div class="timeline-marker"><span>03</span></div><div><span class="timeline-status">COMPLETE / ANOMALY PROXY</span><h3>Screen unusual DGA behaviour</h3><p>Unsupervised scores and a top-5% descriptive proxy are available for engineering review. They are not failure predictions.</p></div><div class="timeline-gate">GATE 03<br/><strong>Review proxy context</strong></div></div><div class="timeline-item"><div class="timeline-marker"><span>04</span></div><div><span class="timeline-status">BLOCKED / LABEL REQUIRED</span><h3>Supervise, explain, and prioritise</h3><p>Failure-risk modelling still waits for an authoritative fault/event table or an explicitly approved engineering target.</p></div><div class="timeline-gate">GATE 04<br/><strong>Target safe to interpret?</strong></div></div></div>
         </section>
 
         <section class="next-phase section-pad" id="next-phase">
-          <div class="next-card"><div class="next-card-main"><span class="eyebrow"><span class="eyebrow-index">NEXT</span> Approval checkpoint</span><h2>Choose the target<br/>the data can <em>defend.</em></h2><p>The real source is ready for DGA analysis. The next move is to approve an anomaly objective or provide an authoritative event/fault label table before supervised modelling.</p><button class="button button-primary approval-button" type="button">Request target review ${icon('arrow')}</button><div class="approval-confirm" role="status" aria-live="polite"></div></div><div class="next-card-side"><div class="next-symbol">↗</div><span class="tiny-label">DECISION LOG</span><strong>Supervised target unavailable.</strong><p>No <code>failure_24h</code> label exists in the selected real source.</p></div></div>
+          <div class="next-card"><div class="next-card-main"><span class="eyebrow"><span class="eyebrow-index">NEXT</span> Approval checkpoint</span><h2>Review the unusual<br/>before you <em>act.</em></h2><p>The approved anomaly screen is ready for engineering interpretation. The next move is to review the top rows and decide whether an external event table or documented DGA alarm objective should be added.</p><button class="button button-primary approval-button" type="button">Request proxy review ${icon('arrow')}</button><div class="approval-confirm" role="status" aria-live="polite"></div></div><div class="next-card-side"><div class="next-symbol">↗</div><span class="tiny-label">DECISION LOG</span><strong>Failure target remains unavailable.</strong><p>The top-5% anomaly proxy is not a <code>failure_24h</code> label.</p></div></div>
         </section>
 
         <footer class="footer"><div class="footer-brand"><span class="brand-mark small"><i></i><i></i><b></b></span><span>GridWatch</span></div><p>Student Data Science prototype for transformer health monitoring and failure-risk decision support.</p><div class="footer-meta"><span>Built to be inspected.</span><span>Not a production utility system.</span></div></footer>
