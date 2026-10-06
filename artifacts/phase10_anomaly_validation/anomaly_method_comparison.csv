@@ -1,0 +1,5 @@
+method,scope,flagged_count,anomaly_rate,overlap_with_phase9b,notes
+Phase9B global Isolation Forest (retrospective),all rows,10161,0.05000147627624081,1.0,"Uses the existing full-period fit; suitable for retrospective descriptive screening, not a real-time score without refit."
+Transformer-specific robust baseline (retrospective),all rows,10161,0.05000147627624081,0.10505709624796085,Median/MAD relative to each transformer's full distribution; descriptive fleet-vs-asset comparison.
+Global Isolation Forest (time-safe holdout),later 30% per transformer,3049,0.05001148180953318,0.594542381067375,Fit on earlier 70% only; scores later observations.
+Transformer-specific robust baseline (time-safe holdout),later 30% per transformer,3049,0.05001148180953318,0.09194641971225401,Fit median/MAD on earlier 70% within each transformer; scores later observations.

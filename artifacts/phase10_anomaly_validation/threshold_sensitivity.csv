@@ -1,0 +1,4 @@
+screening_fraction,threshold,flagged_count,transformers_with_flags,top_transformer
+0.01,0.40791880611683484,2033,13,TX-F > TX-J > TX-M > TX-I > TX-B > TX-D > TX-K > TX-E > TX-G > TX-C > TX-H > TX-L > TX-A
+0.05,0.28501908404399173,10161,13,TX-J > TX-M > TX-F > TX-I > TX-K > TX-B > TX-H > TX-D > TX-E > TX-G > TX-C > TX-L > TX-A
+0.1,0.22024398307276802,20322,13,TX-J > TX-M > TX-F > TX-I > TX-K > TX-H > TX-D > TX-B > TX-L > TX-E > TX-G > TX-C > TX-A

@@ -1,0 +1,8 @@
+{
+  "feature_generation": "Phase 7 sorts by transformer_id,timestamp; diff and rolling(3) are trailing within transformer. No centered windows or future interpolation found in source.",
+  "timestamp_order_check": true,
+  "duplicate_key_check": true,
+  "future_labels": "No labels or target-derived variables exist.",
+  "global_model_fit_risk": "Phase 9B Isolation Forest and robust score fit use the full period, so the retrospective score is not a deployable real-time score without refitting on historical data. Phase 10 adds an earlier-70%/later-30% time-safe holdout comparison.",
+  "corrective_action": "No feature-generation leakage found; future-fit risk is documented and time-safe holdout results are produced separately."
+}
