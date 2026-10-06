@@ -1,0 +1,5 @@
+weight_config,spearman_vs_baseline,top3_overlap,condition_band_changes,priority_changes,top_transformers
+baseline_30_20_20_15_15,1.0,1.0,0,0,TX-I > TX-M > TX-J > TX-L > TX-F
+intensity_emphasis_45_15_15_15_10,0.9958591954639384,1.0,2,2,TX-I > TX-J > TX-M > TX-L > TX-F
+persistence_emphasis_20_40_15_15_10,1.0,1.0,4,4,TX-I > TX-J > TX-M > TX-L > TX-D
+baseline_emphasis_20_15_15_40_20,0.9958677685950413,0.5,2,2,TX-J > TX-I > TX-L > TX-C > TX-M

@@ -1,0 +1,73 @@
+{
+  "dataset": "UK Power Station Transformer DGA 2010-2015",
+  "transformers": 13,
+  "rows": 203214,
+  "random_state": 42,
+  "thresholds": [
+    0.01,
+    0.025,
+    0.05,
+    0.075,
+    0.1
+  ],
+  "weight_configs": {
+    "baseline_30_20_20_15_15": {
+      "intensity": 0.3,
+      "persistence": 0.2,
+      "recency": 0.2,
+      "specific_baseline": 0.15,
+      "trend": 0.15
+    },
+    "intensity_emphasis_45_15_15_15_10": {
+      "intensity": 0.45,
+      "persistence": 0.15,
+      "recency": 0.15,
+      "specific_baseline": 0.15,
+      "trend": 0.1
+    },
+    "persistence_emphasis_20_40_15_15_10": {
+      "intensity": 0.2,
+      "persistence": 0.4,
+      "recency": 0.15,
+      "specific_baseline": 0.15,
+      "trend": 0.1
+    },
+    "baseline_emphasis_20_15_15_40_20": {
+      "intensity": 0.2,
+      "persistence": 0.15,
+      "recency": 0.15,
+      "specific_baseline": 0.4,
+      "trend": 0.1
+    }
+  },
+  "band_configs": {
+    "baseline_25_50_75": [
+      25,
+      50,
+      75
+    ],
+    "tighter_20_45_70": [
+      20,
+      45,
+      70
+    ],
+    "wider_30_55_80": [
+      30,
+      55,
+      80
+    ]
+  },
+  "recency_windows_days": [
+    90,
+    180,
+    365
+  ],
+  "sampling_gap_filters_hours": [
+    8,
+    24,
+    168
+  ],
+  "failure_target_used": false,
+  "failure_probability_used": false,
+  "synthetic_data_used": false
+}

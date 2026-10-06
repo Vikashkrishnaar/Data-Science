@@ -1,0 +1,4 @@
+persistence_config,priority_changes,band_changes,spearman_vs_baseline,top_transformers
+persistence_run2_episodes3,0,0,1.0,TX-I > TX-M > TX-J > TX-L > TX-F
+persistence_run5_episodes5,1,1,1.0,TX-I > TX-M > TX-J > TX-L > TX-F
+persistence_run10_episodes10,2,2,0.9958677685950413,TX-I > TX-M > TX-J > TX-L > TX-F

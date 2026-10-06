@@ -1,0 +1,4 @@
+scenario,observations,anomaly_rate,transformer_count,spearman_vs_full,priority_changes_vs_full,limited_confidence_count
+full_available,203214,0.05000147627624081,13,1.0,0,1
+zero_missing_gases,194600,0.03151593011305241,13,1.0,0,0
+at_most_one_missing_gas,203214,0.05000147627624081,13,1.0,0,1

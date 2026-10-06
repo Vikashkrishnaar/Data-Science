@@ -1,0 +1,5 @@
+configuration,flagged_observations,anomaly_rate,top_transformers,spearman_vs_baseline,top3_overlap_vs_baseline,priority_agreement_vs_baseline
+IF_baseline_200_10000_05,10161,0.05000147627624081,TX-I > TX-M > TX-J > TX-L > TX-F,1.0,1.0,1.0
+IF_small_100_5000_02,4065,0.020003543062977944,TX-I > TX-M > TX-J > TX-L > TX-D,0.9958677685950413,0.5,0.8461538461538461
+IF_large_300_20000_05,10161,0.05000147627624081,TX-I > TX-M > TX-J > TX-L > TX-F,1.0,1.0,1.0
+IF_high_contamination_200_10000_10,20322,0.10000295255248162,TX-I > TX-M > TX-J > TX-L > TX-F,1.0,1.0,0.8461538461538461

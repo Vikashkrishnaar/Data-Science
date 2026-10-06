@@ -168,3 +168,58 @@ h1 em, h2 em, h3 em { font-style:normal; color:var(--lime); }
   .condition-note { grid-template-columns:25px 1fr; }
   .condition-note p { grid-column:2; }
 }
+
+.robustness-section { background:linear-gradient(180deg,#141914 0%,#101410 100%); border-top:1px solid var(--line); }
+.robustness-details { border:1px solid #536248; background:#171d17; }
+.robustness-details summary { list-style:none; cursor:pointer; display:flex; justify-content:space-between; align-items:center; gap:20px; padding:20px 24px; color:var(--paper); }
+.robustness-details summary::-webkit-details-marker { display:none; }
+.robustness-details summary > span { display:flex; flex-direction:column; gap:7px; }
+.robustness-details summary strong { font:500 14px var(--sans); }
+.robustness-details summary small { color:var(--muted); font:9px var(--mono); letter-spacing:.04em; }
+.robustness-details summary > b { color:var(--lime); font:10px var(--mono); text-transform:uppercase; white-space:nowrap; }
+.robustness-details summary svg { width:13px; height:13px; vertical-align:middle; margin-left:7px; transition:transform .2s ease; }
+.robustness-details[open] summary svg { transform:rotate(180deg); }
+.robustness-body { padding:0 24px 24px; border-top:1px solid var(--line); }
+.robustness-intro { display:grid; grid-template-columns:1fr 1fr; gap:30px; padding:28px 0 20px; }
+.robustness-intro h2 { font:400 clamp(28px,3.5vw,46px)/.98 var(--sans); letter-spacing:-.045em; margin:0; }
+.robustness-intro h2 em { color:var(--lime); font-family:var(--serif); font-weight:400; }
+.robustness-intro p { color:#b9c0b6; font:11px/1.6 var(--mono); max-width:550px; margin:0; }
+.robustness-stat-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin:10px 0 24px; }
+.robustness-stat-grid > div { background:#1c241b; padding:18px; display:flex; flex-direction:column; gap:9px; }
+.robustness-stat-grid strong { color:var(--lime); font:500 24px var(--mono); }
+.robustness-stat-grid span { color:#c0c8bd; font:10px/1.35 var(--mono); }
+.robustness-stat-grid small { color:var(--muted); font-size:8px; }
+.robustness-grid { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); margin-top:1px; }
+.robustness-card { background:#171d17; padding:20px; min-width:0; }
+.robustness-assets-card { margin-top:1px; }
+.robustness-table { width:100%; border-collapse:collapse; font:9px var(--mono); }
+.robustness-table th { color:var(--muted); text-align:left; font-size:8px; font-weight:400; text-transform:uppercase; letter-spacing:.06em; padding:12px 8px; border-bottom:1px solid var(--line); }
+.robustness-table td { color:#c1c8bf; padding:11px 8px; border-bottom:1px solid rgba(91,105,84,.22); vertical-align:top; }
+.robustness-table td strong { color:var(--paper); font-weight:500; }
+.robustness-table td small { display:block; color:var(--muted); font-size:8px; margin-top:4px; }
+.robustness-table tr:last-child td { border-bottom:0; }
+.robustness-assets-table { min-width:720px; }
+.robustness-assets-table td:nth-child(2), .robustness-assets-table td:nth-child(3), .robustness-assets-table td:nth-child(4) { color:var(--paper); }
+.robustness-tag { color:var(--amber); font-size:8px; letter-spacing:.04em; }
+.robustness-card .real-footnote { margin-top:15px; }
+.robustness-note { border:1px solid #536248; margin-top:18px; padding:16px 18px; display:grid; grid-template-columns:22px auto 1fr; gap:10px; align-items:start; }
+.robustness-note > span { color:var(--lime); font-size:20px; }
+.robustness-note strong { color:var(--paper); font:500 11px var(--sans); }
+.robustness-note p { color:var(--muted); font:10px/1.45 var(--mono); margin:0; }
+@media (max-width:900px) {
+  .robustness-intro, .robustness-grid { grid-template-columns:1fr; }
+  .robustness-stat-grid { grid-template-columns:1fr 1fr; }
+}
+@media (max-width:640px) {
+  .robustness-details summary { padding:16px; align-items:flex-start; }
+  .robustness-details summary > b { font-size:8px; }
+  .robustness-body { padding:0 16px 16px; }
+  .robustness-stat-grid { grid-template-columns:1fr 1fr; }
+  .robustness-stat-grid > div { padding:14px 12px; }
+  .robustness-stat-grid strong { font-size:19px; }
+  .robustness-table { font-size:8px; }
+  .robustness-table th, .robustness-table td { padding:9px 5px; }
+  .robustness-grid .robustness-card { overflow:hidden; }
+  .robustness-note { grid-template-columns:22px 1fr; }
+  .robustness-note p { grid-column:2; }
+}

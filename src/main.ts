@@ -167,6 +167,36 @@ const realConditionAssets: ConditionAsset[] = [
   { asset: 'TX-K', indicator: 36.89, band: 'MONITOR', priority: 'P3', confidence: 'High confidence', p95: '0.079', baseline: '15.09', recent: 0, recentRate: '0%', maxRun: 101, daysSince: '602.04 d', reasons: ['Strong DGA deviation: water variability', 'Persistent or repeated anomaly behaviour'], suggestion: 'Continue monitoring, review repeated deviations, and confirm that sampling continuity supports interpretation.', components: [0.077, 1, 0, 0.462, 0.511] },
 ]
 
+const phase12RobustnessAssets = [
+  ['TX-I', '90.72', '35.96–91.50', '17/18', 'SENSITIVE', 'CONSISTENTLY HIGH'],
+  ['TX-M', '80.40', '6.92–87.31', '16/18', 'SENSITIVE', 'CONSISTENTLY HIGH'],
+  ['TX-J', '80.38', '51.10–100.00', '17/18', 'INSUFFICIENT DATA', 'METHOD-SENSITIVE / UNCERTAIN'],
+  ['TX-L', '62.73', '52.26–92.72', '2/18', 'MODERATELY STABLE', 'NOT CONSENSUS-HIGH'],
+  ['TX-F', '57.26', '37.31–76.39', '1/18', 'SENSITIVE', 'METHOD-SENSITIVE / UNCERTAIN'],
+  ['TX-D', '54.14', '45.66–67.01', '0/18', 'MODERATELY STABLE', 'NOT CONSENSUS-HIGH'],
+  ['TX-C', '52.08', '37.89–85.65', '1/18', 'SENSITIVE', 'METHOD-SENSITIVE / UNCERTAIN'],
+  ['TX-A', '50.71', '8.08–57.69', '0/18', 'SENSITIVE', 'METHOD-SENSITIVE / UNCERTAIN'],
+  ['TX-H', '40.77', '33.77–56.92', '0/18', 'MODERATELY STABLE', 'NOT CONSENSUS-HIGH'],
+  ['TX-E', '39.04', '12.12–54.04', '0/18', 'SENSITIVE', 'METHOD-SENSITIVE / UNCERTAIN'],
+  ['TX-G', '39.04', '12.12–54.04', '0/18', 'SENSITIVE', 'METHOD-SENSITIVE / UNCERTAIN'],
+  ['TX-B', '35.00', '23.27–53.46', '0/18', 'SENSITIVE', 'METHOD-SENSITIVE / UNCERTAIN'],
+  ['TX-K', '29.23', '25.38–48.46', '0/18', 'MODERATELY STABLE', 'NOT CONSENSUS-HIGH'],
+]
+
+const phase12Methods = [
+  ['Isolation Forest / baseline', '1.000', '1.000', '1.000', 'baseline'],
+  ['Transformer-specific robust MAD', '0.996', '0.200', '0.308', 'method-sensitive'],
+  ['Within-transformer percentile', '0.997', '0.500', '0.615', 'method-sensitive'],
+]
+
+const phase12Thresholds = [
+  ['1%', '2,033', 'TX-M → TX-I → TX-J', '2'],
+  ['2.5%', '5,081', 'TX-I → TX-M → TX-J', '1'],
+  ['5%', '10,161', 'TX-I → TX-M → TX-J', '0'],
+  ['7.5%', '15,241', 'TX-I → TX-M → TX-J', '0'],
+  ['10%', '20,322', 'TX-I → TX-M → TX-J', '2'],
+]
+
 const icon = (name: string) => {
   const paths: Record<string, string> = {
     arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
@@ -188,7 +218,7 @@ app.innerHTML = `
         <span class="brand-mark"><i></i><i></i><b></b></span>
         <span class="brand-name">Grid<span>Watch</span></span>
       </a>
-      <div class="topbar-meta"><span class="live-dot"></span><span>Real data / phase 11 review</span><span class="meta-divider"></span><span>Decision support, not control</span></div>
+      <div class="topbar-meta"><span class="live-dot"></span><span>Real data / phase 12 review</span><span class="meta-divider"></span><span>Decision support, not control</span></div>
       <a class="rail-link" href="#next-phase">Next phase ${icon('arrow')}</a>
     </header>
 
@@ -213,9 +243,9 @@ app.innerHTML = `
             <div class="hero-note"><span class="note-mark">↳</span> No autonomous control. No fabricated labels. No novelty claims.</div>
           </div>
           <div class="hero-instrument" aria-label="Prototype status panel">
-              <div class="instrument-head"><span>READINESS / 11</span><span class="instrument-status"><i></i> CONDITION REVIEW READY</span></div>
+              <div class="instrument-head"><span>READINESS / 12</span><span class="instrument-status"><i></i> ROBUSTNESS REVIEW READY</span></div>
             <div class="dial-wrap">
-              <div class="dial"><div class="dial-inner"><span class="dial-value">11</span><span class="dial-caption">phase</span></div><span class="dial-tick tick-a"></span><span class="dial-tick tick-b"></span><span class="dial-tick tick-c"></span></div>
+              <div class="dial"><div class="dial-inner"><span class="dial-value">12</span><span class="dial-caption">phase</span></div><span class="dial-tick tick-a"></span><span class="dial-tick tick-b"></span><span class="dial-tick tick-c"></span></div>
               <div class="instrument-copy"><span class="tiny-label">CURRENT QUESTION</span><strong>What can this<br/>dataset support?</strong><span class="instrument-sub">Real DGA data is validated. The condition indicator is retrospective.</span></div>
             </div>
             <div class="instrument-readout"><div><span class="tiny-label">REAL TARGET</span><code>not available</code></div><div><span class="tiny-label">ASSETS</span><strong>13 TX</strong></div><div><span class="tiny-label">STATUS</span><strong class="lime-text">Target gate</strong></div></div>
@@ -309,6 +339,20 @@ app.innerHTML = `
           </div>
           <div class="condition-distribution-grid"><div class="condition-mini-card"><span class="review-label">CONDITION BANDS</span><div class="distribution-row"><span>HIGH REVIEW</span><i><b style="width:23%"></b></i><strong>3</strong></div><div class="distribution-row"><span>REVIEW</span><i><b style="width:38%"></b></i><strong>5</strong></div><div class="distribution-row"><span>MONITOR</span><i><b style="width:38%"></b></i><strong>5</strong></div><p>Project-defined analytical bands; not utility alarm limits.</p></div><div class="condition-mini-card"><span class="review-label">CONFIDENCE / DATA QUALITY</span><div class="distribution-row"><span>HIGH</span><i><b style="width:85%"></b></i><strong>11</strong></div><div class="distribution-row"><span>MODERATE</span><i><b style="width:8%"></b></i><strong>1</strong></div><div class="distribution-row"><span>LIMITED</span><i><b style="width:8%"></b></i><strong>1</strong></div><p>TX-J is limited because 40.27% of rows have missing gas measurements.</p></div><div class="condition-mini-card"><span class="review-label">COMPONENT WEIGHTS</span><div class="weight-list"><span><b>30%</b> fleet anomaly intensity</span><span><b>20%</b> persistence</span><span><b>20%</b> recency</span><span><b>15%</b> specific baseline · <b>15%</b> trend</span></div><p>No failure probability is calculated.</p></div></div>
           <div class="condition-note"><span>↳</span><strong>Read this as a screening indicator.</strong><p>Statistical deviation is not a diagnosis or causal explanation. Review recent DGA history, sampling continuity, transformer-specific behaviour, and qualified engineering context before any action.</p></div>
+        </section>
+
+        <section class="robustness-section section-pad" id="robustness-validation">
+          <div class="section-kicker"><span>05F</span><span>Phase 12 / real DGA robustness & validation</span></div>
+          <details class="robustness-details" open>
+            <summary><span><strong>How much should we trust the screening conclusions?</strong><small>18 analytical runs · 13 transformers · 203,214 real DGA rows · no failure target</small></span><b>Expand analysis ${icon('chevron')}</b></summary>
+            <div class="robustness-body">
+              <div class="robustness-intro"><div><h2>Robustness before<br/><em>certainty.</em></h2></div><p>Phase 12 changes thresholds, Isolation Forest parameters, alternative anomaly methods, indicator weights, bands, persistence, recency, missingness, and sampling-gap filters. It measures methodological stability—not equipment health, failure probability, or physical causality.</p></div>
+              <div class="robustness-stat-grid"><div><strong>2</strong><span>consistently high screening<br/><small>TX-I · TX-M</small></span></div><div><strong>7</strong><span>method-sensitive / uncertain<br/><small>needs contextual review</small></span></div><div><strong>0.20</strong><span>best alternative top-3 overlap<br/><small>robust MAD vs IF</small></span></div><div><strong>3.15%</strong><span>zero-missing proxy rate<br/><small>5.00% full-data baseline</small></span></div></div>
+              <div class="robustness-grid"><div class="robustness-card"><div class="real-card-head"><span class="review-label">METHOD AGREEMENT / SCREENING ONLY</span><span class="real-chip warning">NO CAUSALITY</span></div><table class="robustness-table"><thead><tr><th>Method</th><th>Spearman</th><th>Top-3 overlap</th><th>Priority agreement</th></tr></thead><tbody>${phase12Methods.map((row) => `<tr><td><strong>${row[0]}</strong><small>${row[4]}</small></td><td>${row[1]}</td><td>${row[2]}</td><td>${row[3]}</td></tr>`).join('')}</tbody></table><p class="real-footnote">Global Isolation Forest and transformer-specific methods answer different descriptive questions. Disagreement is retained rather than hidden.</p></div><div class="robustness-card"><div class="real-card-head"><span class="review-label">THRESHOLD SENSITIVITY / IF SCORE</span><span class="real-chip">FIXED SEED 42</span></div><table class="robustness-table"><thead><tr><th>Top-score cut</th><th>Rows flagged</th><th>Leading assets</th><th>Priority changes</th></tr></thead><tbody>${phase12Thresholds.map((row) => `<tr><td><strong>${row[0]}</strong></td><td>${row[1]}</td><td>${row[2]}</td><td>${row[3]}</td></tr>`).join('')}</tbody></table><p class="real-footnote">Higher thresholds reduce flagged observations by construction. No threshold is declared correct or engineering validated.</p></div></div>
+              <div class="robustness-card robustness-assets-card"><div class="real-card-head"><span class="review-label">TRANSFORMER-LEVEL ROBUSTNESS / 18 RUNS</span><span class="real-chip warning">METHODOLOGICAL STABILITY</span></div><div class="real-table-wrap"><table class="robustness-table robustness-assets-table"><thead><tr><th>Asset</th><th>Baseline indicator</th><th>Run range</th><th>Top-3</th><th>Stability</th><th>Consensus screen</th></tr></thead><tbody>${phase12RobustnessAssets.map((row) => `<tr><td><strong>${row[0]}</strong></td><td>${row[1]}</td><td>${row[2]}</td><td>${row[3]}</td><td><span class="robustness-tag">${row[4]}</span></td><td>${row[5]}</td></tr>`).join('')}</tbody></table></div><p class="real-footnote">“Consistently high screening” is a cross-method/configuration description, not a failure prediction. “Method-sensitive” means conclusions vary materially across reasonable analytical choices.</p></div>
+              <div class="robustness-note"><span>↳</span><strong>Phase 12 conclusion:</strong><p>TX-I and TX-M remain high-ranked across most tested configurations, while TX-J remains limited-confidence and several assets are method-sensitive. Missingness and sampling gaps affect interpretability. Engineering context is still required.</p></div>
+            </div>
+          </details>
         </section>
 
         <section class="model-lab-section section-pad" id="model-lab">

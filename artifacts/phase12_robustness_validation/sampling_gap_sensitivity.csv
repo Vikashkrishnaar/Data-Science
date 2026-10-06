@@ -1,0 +1,5 @@
+scenario,observations,anomaly_rate,transformer_count,spearman_vs_full,priority_changes_vs_full,limited_confidence_count
+full_available,203214,0.05000147627624081,13,1.0,0,1
+gap_le_8h,203157,0.04984814699961114,13,1.0,1,1
+gap_le_24h,203175,0.04986834010089824,13,1.0,0,1
+gap_le_7d,203197,0.04992691821237518,13,1.0,0,1
