@@ -97,6 +97,31 @@ const phase4Fleet = [
   { asset: 'TX-007', risk: '55.7%', health: '69.4', band: 'Watch', priority: 'P5', suggestion: 'Review recent trend windows and confirm data quality before changing inspection cadence.' },
 ]
 
+const realGasSummary = [
+  { gas: 'Hydrogen', measurements: '214,337', mean: '33.09', median: '19.4', p95: '118.6' },
+  { gas: 'Methane', measurements: '214,337', mean: '35.29', median: '31.6', p95: '94.9' },
+  { gas: 'Acetylene', measurements: '214,337', mean: '0.39', median: '0.3', p95: '1.4' },
+  { gas: 'Ethylene', measurements: '214,337', mean: '9.30', median: '7.3', p95: '23.7' },
+  { gas: 'Ethane', measurements: '214,337', mean: '103.41', median: '35.8', p95: '421.8' },
+  { gas: 'Carbon Monoxide', measurements: '214,337', mean: '197.37', median: '191.4', p95: '393.0' },
+  { gas: 'Carbon Dioxide', measurements: '214,337', mean: '1,388.70', median: '1,303.0', p95: '2,863.0' },
+  { gas: 'Oxygen', measurements: '205,721', mean: '2,014.88', median: '611.3', p95: '11,898.3' },
+  { gas: 'Water', measurements: '214,337', mean: '4.43', median: '3.6', p95: '9.0' },
+]
+
+const realAssetSummary = [
+  ['TX-A', '27,189', '3 phases', '2014-08 → 2015-07'], ['TX-B', '217,638', '3 phases', '2011-01 → 2015-05'], ['TX-C', '71,424', '1 phase', '2010-09 → 2015-07'], ['TX-D', '81,675', '1 phase', '2010-07 → 2015-07'], ['TX-E', '215,424', '3 phases', '2010-07 → 2015-07'], ['TX-F', '164,610', '3 phases', '2010-07 → 2015-07'], ['TX-G', '215,424', '3 phases', '2010-07 → 2015-07'], ['TX-H', '214,110', '3 phases', '2010-07 → 2015-07'], ['TX-I', '51,786', '3 phases', '2013-07 → 2015-07'], ['TX-J', '224,124', '3 phases', '2010-07 → 2015-07'], ['TX-K', '256,599', '3 phases', '2010-09 → 2015-07'], ['TX-L', '130,509', '3 phases', '2011-06 → 2015-07'], ['TX-M', '49,905', '3 phases', '2013-10 → 2015-07'],
+]
+
+const realFeatureGroups = [
+  ['Raw DGA state', '9', 'ppm concentrations for the nine available gas families'],
+  ['Log transforms', '9', 'log1p concentrations for skew-aware comparisons'],
+  ['Trailing deltas', '9', 'within-transformer first differences'],
+  ['Trailing means', '9', 'three-observation rolling means'],
+  ['Trailing variability', '9', 'three-observation rolling standard deviations'],
+  ['Data quality / recency', '3', 'observed gases, missing gases, hours since previous record'],
+]
+
 const icon = (name: string) => {
   const paths: Record<string, string> = {
     arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
@@ -118,7 +143,7 @@ app.innerHTML = `
         <span class="brand-mark"><i></i><i></i><b></b></span>
         <span class="brand-name">Grid<span>Watch</span></span>
       </a>
-      <div class="topbar-meta"><span class="live-dot"></span><span>Prototype / phase 05 review</span><span class="meta-divider"></span><span>Decision support, not control</span></div>
+      <div class="topbar-meta"><span class="live-dot"></span><span>Real data / phase 08 review</span><span class="meta-divider"></span><span>Decision support, not control</span></div>
       <a class="rail-link" href="#next-phase">Next phase ${icon('arrow')}</a>
     </header>
 
@@ -143,21 +168,21 @@ app.innerHTML = `
             <div class="hero-note"><span class="note-mark">↳</span> No autonomous control. No fabricated labels. No novelty claims.</div>
           </div>
           <div class="hero-instrument" aria-label="Prototype status panel">
-            <div class="instrument-head"><span>READINESS / 05</span><span class="instrument-status"><i></i> REPORT READY</span></div>
+            <div class="instrument-head"><span>READINESS / 08</span><span class="instrument-status"><i></i> REAL DATA LOADED</span></div>
             <div class="dial-wrap">
               <div class="dial"><div class="dial-inner"><span class="dial-value">01</span><span class="dial-caption">phase</span></div><span class="dial-tick tick-a"></span><span class="dial-tick tick-b"></span><span class="dial-tick tick-c"></span></div>
-              <div class="instrument-copy"><span class="tiny-label">CURRENT QUESTION</span><strong>Is the dataset fit<br/>for this question?</strong><span class="instrument-sub">Validation plan is ready. A real source still needs approval.</span></div>
+              <div class="instrument-copy"><span class="tiny-label">CURRENT QUESTION</span><strong>What can this<br/>dataset support?</strong><span class="instrument-sub">Real DGA data is validated. The supervised target gate remains open.</span></div>
             </div>
-            <div class="instrument-readout"><div><span class="tiny-label">PROVISIONAL TARGET</span><code>failure_24h</code></div><div><span class="tiny-label">HORIZON</span><strong>24 h*</strong></div><div><span class="tiny-label">STATUS</span><strong class="lime-text">Dataset pending</strong></div></div>
-            <p class="instrument-foot">* Do not treat the 24-hour horizon as fixed until timestamped failure information supports it.</p>
+            <div class="instrument-readout"><div><span class="tiny-label">REAL TARGET</span><code>not available</code></div><div><span class="tiny-label">ASSETS</span><strong>13 TX</strong></div><div><span class="tiny-label">STATUS</span><strong class="lime-text">Target gate</strong></div></div>
+            <p class="instrument-foot">No failure, fault, or health label is present. Do not invent one from gas thresholds.</p>
           </div>
         </section>
 
         <section class="signal-strip" aria-label="Project principles">
-          <div><span class="strip-number">12</span><span>analysis phases<br/><small>from input to interface</small></span></div>
-          <div><span class="strip-number">03</span><span>approval gates<br/><small>before the next question</small></span></div>
-          <div><span class="strip-number">00</span><span>assumed data fields<br/><small>only use what exists</small></span></div>
-          <div><span class="strip-number">01</span><span>next decision<br/><small>is the dataset fit?</small></span></div>
+          <div><span class="strip-number">13</span><span>real transformers<br/><small>UK power-station DGA</small></span></div>
+          <div><span class="strip-number">1.92M</span><span>DGA measurements<br/><small>after validation</small></span></div>
+          <div><span class="strip-number">09</span><span>gas families<br/><small>measured in ppm</small></span></div>
+          <div><span class="strip-number">01</span><span>target gate<br/><small>no failure label yet</small></span></div>
         </section>
 
         <section class="context section-pad" id="context">
@@ -209,9 +234,21 @@ app.innerHTML = `
           <div class="table-disclaimer"><span>◎</span><p>Illustrative only. No actual transformer readings, labels, model metrics, or engineering recommendations are asserted here.</p></div>
         </section>
 
+        <section class="real-data-section section-pad" id="real-data">
+          <div class="section-kicker"><span>05A</span><span>Phase 8 / real dataset</span></div>
+          <div class="real-data-head"><div><h2>The real signal is<br/><em>DGA.</em></h2></div><p>The final dashboard now foregrounds the validated UK power-station dataset. These are descriptive measurements and engineered features—not failure predictions. The source contains 13 transformers, 316,203 raw rows, and 1,920,417 normalized non-null DGA measurements from July 2010 to July 2015.</p></div>
+          <div class="real-stat-grid"><div><strong>13</strong><span>transformers</span></div><div><strong>316,203</strong><span>raw rows</span></div><div><strong>1,920,417</strong><span>normalized measurements</span></div><div><strong>2010 → 2015</strong><span>UTC coverage</span></div></div>
+          <div class="real-data-grid">
+            <div class="real-table-card"><div class="real-card-head"><span class="review-label">GAS-LEVEL DISTRIBUTIONS / ppm</span><span class="real-chip">REAL / VALIDATED</span></div><div class="real-table-wrap"><table class="real-table"><thead><tr><th>Gas</th><th>Measurements</th><th>Mean</th><th>Median</th><th>P95</th></tr></thead><tbody>${realGasSummary.map((row) => `<tr><td><strong>${row.gas}</strong></td><td>${row.measurements}</td><td>${row.mean}</td><td>${row.median}</td><td class="real-accent">${row.p95}</td></tr>`).join('')}</tbody></table></div><p class="real-footnote">Oxygen has fewer non-null measurements than the other gas families; all values are source ppm readings, not normalized risk scores.</p></div>
+            <div class="real-table-card"><div class="real-card-head"><span class="review-label">ASSET COVERAGE / 13 TRANSFORMERS</span><span class="real-chip">REAL / VALIDATED</span></div><div class="real-table-wrap"><table class="real-table asset-table"><thead><tr><th>Asset</th><th>Measurements</th><th>Phases</th><th>Date span</th></tr></thead><tbody>${realAssetSummary.map((row) => `<tr><td><strong>${row[0]}</strong></td><td>${row[1]}</td><td>${row[2]}</td><td>${row[3]}</td></tr>`).join('')}</tbody></table></div><p class="real-footnote">Phase coverage differs by source file: TX-C and TX-D are single-phase records; the other assets contain three phase labels.</p></div>
+          </div>
+          <div class="real-feature-grid"><div class="real-feature-copy"><span class="review-label">AVAILABLE FEATURE COLUMNS / 48</span><h3>Engineer the<br/><em>observed history.</em></h3><p>The real feature table is current-and-trailing by transformer. It contains no load, temperature, current, voltage, maintenance, or failure-event fields.</p></div><div class="real-feature-list">${realFeatureGroups.map((group) => `<div class="real-feature-row"><span class="real-feature-count">${group[1]}</span><div><strong>${group[0]}</strong><p>${group[2]}</p></div></div>`).join('')}</div></div>
+          <div class="target-gate-card"><div><span class="real-chip warning">APPROVAL GATE / NO REAL TARGET</span><h3><code>failure_24h</code> cannot be trained from this source yet.</h3><p>No failure, fault, health, maintenance-outcome, outage, or event label exists in the validated data. The dashboard therefore shows real preprocessing and EDA, while supervised models, real metrics, error analysis, and supervised explainability remain intentionally locked.</p></div><div class="target-options"><span class="review-label">DOCUMENTED NEXT OPTIONS</span><strong>01 · Join an authoritative fault/event label table</strong><strong>02 · Approve unsupervised DGA anomaly detection</strong><strong>03 · Acquire labelled DGA diagnostic data</strong></div></div>
+        </section>
+
         <section class="model-lab-section section-pad" id="model-lab">
-          <div class="section-kicker"><span>05A</span><span>Phase 3 / model lab</span></div>
-          <div class="model-lab-head"><div><h2>Train, compare,<br/><em>stay honest.</em></h2></div><p>These tabs are powered by the fixed-seed synthetic pipeline in <code>artifacts/phase3</code>. They demonstrate the dashboard workflow—not real utility performance.</p></div>
+          <div class="section-kicker"><span>05B</span><span>Optional / synthetic model lab</span></div>
+          <div class="model-lab-head"><div><h2>Demonstrate the workflow,<br/><em>not the utility result.</em></h2></div><p>These tabs remain available as a fixed-seed synthetic demonstration. They are intentionally separated from the real-data evidence above and must not be read as performance on the 13-transformer source.</p></div>
           <div class="model-tabs" role="tablist" aria-label="Phase 3 model tabs"><button class="model-tab active" role="tab" aria-selected="true" aria-controls="evaluation-panel" data-model-panel="evaluation-panel">Model evaluation</button><button class="model-tab" role="tab" aria-selected="false" aria-controls="risk-panel" data-model-panel="risk-panel">Risk prediction</button></div>
           <div class="model-panel active" id="evaluation-panel" role="tabpanel">
             <div class="model-meta"><span class="demo-chip">SYNTHETIC DEMO / SEED 42</span><span>12 assets · 5,760 rows · 25 engineered features · 1-hour sampling contract</span></div>
@@ -226,8 +263,8 @@ app.innerHTML = `
         </section>
 
         <section class="review-lab-section section-pad" id="review-lab">
-          <div class="section-kicker"><span>05B</span><span>Phase 4 / review layer</span></div>
-          <div class="review-lab-head"><div><h2>Explain the signal.<br/><em>Then decide.</em></h2></div><p>Global importance, local reason codes, health scoring, and maintenance-oriented suggestions are shown here as synthetic demonstrations. They support review; they do not diagnose or control equipment.</p></div>
+          <div class="section-kicker"><span>05C</span><span>Optional / synthetic review layer</span></div>
+          <div class="review-lab-head"><div><h2>Explain the signal.<br/><em>Then decide.</em></h2></div><p>These explainability and maintenance views remain synthetic demonstrations until a real supervised target exists. They support review; they do not diagnose or control equipment.</p></div>
           <div class="review-tabs" role="tablist" aria-label="Phase 4 review tabs"><button class="review-tab active" role="tab" aria-selected="true" aria-controls="explainability-panel" data-review-panel="explainability-panel">Explainability</button><button class="review-tab" role="tab" aria-selected="false" aria-controls="maintenance-panel" data-review-panel="maintenance-panel">Maintenance recommendations</button></div>
           <div class="review-panel active" id="explainability-panel" role="tabpanel">
             <div class="review-meta"><span class="demo-chip">SYNTHETIC DEMO / FEATURE IMPORTANCE</span><span>Random Forest global importance + logistic local contribution proxy</span></div>
@@ -253,11 +290,11 @@ app.innerHTML = `
         <section class="timeline-section section-pad" id="progress">
           <div class="section-kicker"><span>07</span><span>Approval gates / progress</span></div>
           <div class="timeline-head"><div><h2>Progress is a<br/><em>permission.</em></h2></div><p>The master prompt is executed phase by phase. Each stop protects the next decision from being built on an unverified assumption.</p></div>
-          <div class="timeline"><div class="timeline-item current"><div class="timeline-marker"><span>01</span></div><div><span class="timeline-status">CURRENT / PLAN READY</span><h3>Inspect and validate the dataset</h3><p>The validation protocol and feature strategy are documented; a real source, licence, and event definition are still required.</p></div><div class="timeline-gate">GATE 01<br/><strong>Fit for question?</strong></div></div><div class="timeline-item"><div class="timeline-marker"><span>02</span></div><div><span class="timeline-status">QUEUED / NEEDS APPROVAL</span><h3>Explore, engineer, and define</h3><p>Only after the dataset assessment confirms what can be measured, labelled, and split safely.</p></div><div class="timeline-gate">GATE 02<br/><strong>Features defensible?</strong></div></div><div class="timeline-item"><div class="timeline-marker"><span>03</span></div><div><span class="timeline-status">CONDITIONAL / LATER</span><h3>Model, explain, and prioritise</h3><p>Compare baselines, evaluate honestly, and translate outputs into inspection-oriented context.</p></div><div class="timeline-gate">GATE 03<br/><strong>Safe to interpret?</strong></div></div></div>
+          <div class="timeline"><div class="timeline-item current"><div class="timeline-marker"><span>01</span></div><div><span class="timeline-status">COMPLETE / REAL SOURCE VALIDATED</span><h3>Inspect and validate the dataset</h3><p>Real DGA data, provenance, schema, timestamps, missingness, phase coverage, and licensing are documented.</p></div><div class="timeline-gate">GATE 01<br/><strong>Source fit for DGA analysis</strong></div></div><div class="timeline-item current"><div class="timeline-marker"><span>02</span></div><div><span class="timeline-status">COMPLETE / EDA + FEATURES</span><h3>Explore, engineer, and define</h3><p>Real gas distributions, transformer coverage, and current/trailing feature groups are available; no event label was found.</p></div><div class="timeline-gate">GATE 02<br/><strong>Feature target decision</strong></div></div><div class="timeline-item"><div class="timeline-marker"><span>03</span></div><div><span class="timeline-status">BLOCKED / TARGET REQUIRED</span><h3>Model, explain, and prioritise</h3><p>Supervised modelling waits for an authoritative label table or explicit approval of an unsupervised DGA anomaly objective.</p></div><div class="timeline-gate">GATE 03<br/><strong>Target safe to interpret?</strong></div></div></div>
         </section>
 
         <section class="next-phase section-pad" id="next-phase">
-          <div class="next-card"><div class="next-card-main"><span class="eyebrow"><span class="eyebrow-index">NEXT</span> Approval checkpoint</span><h2>Ready to inspect<br/>what the data <em>actually says?</em></h2><p>The next move is not “build the model.” It is to review the dataset assessment and decide whether the proposed question is defensible.</p><button class="button button-primary approval-button" type="button">Request phase 01 review ${icon('arrow')}</button><div class="approval-confirm" role="status" aria-live="polite"></div></div><div class="next-card-side"><div class="next-symbol">↗</div><span class="tiny-label">DECISION LOG</span><strong>Target remains provisional.</strong><p><code>failure_24h</code> will only survive if timestamped failure events and sampling support it.</p></div></div>
+          <div class="next-card"><div class="next-card-main"><span class="eyebrow"><span class="eyebrow-index">NEXT</span> Approval checkpoint</span><h2>Choose the target<br/>the data can <em>defend.</em></h2><p>The real source is ready for DGA analysis. The next move is to approve an anomaly objective or provide an authoritative event/fault label table before supervised modelling.</p><button class="button button-primary approval-button" type="button">Request target review ${icon('arrow')}</button><div class="approval-confirm" role="status" aria-live="polite"></div></div><div class="next-card-side"><div class="next-symbol">↗</div><span class="tiny-label">DECISION LOG</span><strong>Supervised target unavailable.</strong><p>No <code>failure_24h</code> label exists in the selected real source.</p></div></div>
         </section>
 
         <footer class="footer"><div class="footer-brand"><span class="brand-mark small"><i></i><i></i><b></b></span><span>GridWatch</span></div><p>Student Data Science prototype for transformer health monitoring and failure-risk decision support.</p><div class="footer-meta"><span>Built to be inspected.</span><span>Not a production utility system.</span></div></footer>
