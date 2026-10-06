@@ -42,3 +42,5 @@ GridWatch is a portfolio-quality, responsive presentation site for a student-lev
 - `data/real/uk_power_station_dga_2010_2015/`: real CC BY 4.0 UK power-station transformer DGA source archive, normalized long table, source metadata, quality summary, and validation outputs.
 - `scripts/phase6_real_dataset_validation.py`: reproducible real-dataset normalization and validation pipeline.
 - `data/real/uk_power_station_dga_2010_2015/validated/PHASE_6_REAL_DATASET_VALIDATION.md`: Phase 6 source, quality, licensing, and target-feasibility report.
+- `scripts/phase7_real_model_pipeline.py`: real-data preprocessing, EDA, leakage-safe DGA feature engineering, and supervised-target approval gate.
+- `artifacts/phase7_real/`: real feature table, gas/asset EDA summaries, plots, and the Phase 7 target decision record. Supervised train/test modelling is intentionally stopped until an authoritative target label is obtained.
