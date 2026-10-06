@@ -1,0 +1,7 @@
+condition_band,transformers,mean_indicator,mean_recent_rate,share,summary_type,limited_confidence_count,priority_rank
+HIGH REVIEW,3,83.83333333333333,0.36744696702904034,0.23076923076923078,condition_band,,
+MONITOR,5,44.126,0.0,0.38461538461538464,condition_band,,
+REVIEW,5,55.384,0.008263998342736367,0.38461538461538464,condition_band,,
+P1 — High Review Priority,2,85.56,0.47978690185147105,,review_priority,0.0,1.0
+P2 — Review,6,59.550000000000004,0.03068118151631014,,review_priority,1.0,2.0
+P3 — Monitor,5,44.126,0.0,,review_priority,0.0,3.0

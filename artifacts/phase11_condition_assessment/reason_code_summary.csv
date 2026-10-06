@@ -1,0 +1,14 @@
+transformer_id,condition_indicator,condition_band,review_priority,reason_codes
+TX-I,90.72,HIGH REVIEW,P1 — High Review Priority,Strong DGA deviation: carbon monoxide change; Persistent or repeated anomaly behaviour; Recent anomaly activity
+TX-M,80.4,HIGH REVIEW,P1 — High Review Priority,Strong DGA deviation: ethane concentration; Persistent or repeated anomaly behaviour; Recent anomaly activity
+TX-J,80.38,HIGH REVIEW,P2 — Review,Strong DGA deviation: hydrogen change; Persistent or repeated anomaly behaviour; Recent anomaly activity; Transformer-specific baseline deviation; Data-quality or sampling limitation
+TX-L,62.73,REVIEW,P2 — Review,Strong DGA deviation: oxygen variability; Persistent or repeated anomaly behaviour; Recent anomaly activity; Transformer-specific baseline deviation
+TX-F,57.26,REVIEW,P2 — Review,Strong DGA deviation: ethane variability; Persistent or repeated anomaly behaviour; Recent anomaly activity
+TX-D,54.14,REVIEW,P2 — Review,Strong DGA deviation: oxygen change; Persistent or repeated anomaly behaviour; Recent anomaly activity; Transformer-specific baseline deviation
+TX-C,52.08,REVIEW,P2 — Review,Strong DGA deviation: oxygen variability; Persistent or repeated anomaly behaviour; Recent anomaly activity; Transformer-specific baseline deviation
+TX-A,50.71,REVIEW,P2 — Review,Strong DGA deviation: carbon dioxide concentration; Persistent or repeated anomaly behaviour; Recent anomaly activity
+TX-H,48.67,MONITOR,P3 — Monitor,Strong DGA deviation: ethane concentration; Persistent or repeated anomaly behaviour
+TX-E,46.39,MONITOR,P3 — Monitor,Strong DGA deviation: hydrogen concentration; Persistent or repeated anomaly behaviour
+TX-G,46.39,MONITOR,P3 — Monitor,Strong DGA deviation: hydrogen concentration; Persistent or repeated anomaly behaviour
+TX-B,42.29,MONITOR,P3 — Monitor,Strong DGA deviation: oxygen concentration; Persistent or repeated anomaly behaviour
+TX-K,36.89,MONITOR,P3 — Monitor,Strong DGA deviation: water variability; Persistent or repeated anomaly behaviour

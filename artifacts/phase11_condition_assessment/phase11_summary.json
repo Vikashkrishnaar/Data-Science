@@ -1,0 +1,46 @@
+{
+  "dataset": "UK Power Station Transformer DGA 2010-2015",
+  "transformers": 13,
+  "observations": 203214,
+  "condition_method": "fleet-relative anomaly intensity + persistence + recency + transformer-specific robust deviation + trend/change",
+  "condition_bands": {
+    "NORMAL": [
+      0.0,
+      0.25
+    ],
+    "MONITOR": [
+      0.25,
+      0.5
+    ],
+    "REVIEW": [
+      0.5,
+      0.75
+    ],
+    "HIGH REVIEW": [
+      0.75,
+      1.01
+    ]
+  },
+  "recent_window_days": 180,
+  "prior_window_days": 180,
+  "weights": {
+    "intensity": 0.3,
+    "persistence": 0.2,
+    "recency": 0.2,
+    "specific_baseline": 0.15,
+    "trend": 0.15
+  },
+  "priority_counts": {
+    "P2 \u2014 Review": 6,
+    "P3 \u2014 Monitor": 5,
+    "P1 \u2014 High Review Priority": 2
+  },
+  "confidence_counts": {
+    "High confidence": 11,
+    "Limited confidence": 1,
+    "Moderate confidence": 1
+  },
+  "failure_target_used": false,
+  "failure_probability_used": false,
+  "synthetic_data_used": false
+}

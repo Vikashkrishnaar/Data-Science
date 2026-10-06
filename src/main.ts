@@ -134,6 +134,39 @@ const realAnomalyReasons = [
   ['ethane_ppm_roll_std_3', '14.18%'], ['hydrogen_ppm_delta', '12.14%'], ['ethylene_ppm_delta', '9.56%'], ['ethane_ppm_log1p', '8.37%'], ['oxygen_ppm_roll_std_3', '6.26%'],
 ]
 
+type ConditionAsset = {
+  asset: string
+  indicator: number
+  band: string
+  priority: string
+  confidence: string
+  p95: string
+  baseline: string
+  recent: number
+  recentRate: string
+  maxRun: number
+  daysSince: string
+  reasons: string[]
+  suggestion: string
+  components: [number, number, number, number, number]
+}
+
+const realConditionAssets: ConditionAsset[] = [
+  { asset: 'TX-I', indicator: 90.72, band: 'HIGH REVIEW', priority: 'P1', confidence: 'High confidence', p95: '0.391', baseline: '15.19', recent: 760, recentRate: '46.91%', maxRun: 47, daysSince: '0.04 d', reasons: ['Strong DGA deviation: carbon monoxide change', 'Persistent or repeated anomaly behaviour', 'Recent anomaly activity'], suggestion: 'Review recent DGA history, compare with the transformer-specific baseline, verify sampling continuity, and consider qualified engineering inspection.', components: [0.923, 1, 0.9998, 0.538, 0.997] },
+  { asset: 'TX-M', indicator: 80.40, band: 'HIGH REVIEW', priority: 'P1', confidence: 'High confidence', p95: '0.394', baseline: '7.73', recent: 795, recentRate: '49.04%', maxRun: 128, daysSince: '0 d', reasons: ['Strong DGA deviation: ethane concentration', 'Persistent or repeated anomaly behaviour', 'Recent anomaly activity'], suggestion: 'Review recent DGA history, compare with the transformer-specific baseline, verify sampling continuity, and consider qualified engineering inspection.', components: [1, 1, 1, 0.154, 0.539] },
+  { asset: 'TX-J', indicator: 80.38, band: 'HIGH REVIEW', priority: 'P2', confidence: 'Limited confidence', p95: '0.358', baseline: '358.75', recent: 453, recentRate: '14.28%', maxRun: 38, daysSince: '0.08 d', reasons: ['Strong DGA deviation: hydrogen change', 'Persistent or repeated anomaly behaviour', 'Recent anomaly activity', 'Transformer-specific baseline deviation', 'Data-quality or sampling limitation'], suggestion: 'Review the recent DGA trend and transformer-specific history; verify data quality before changing inspection cadence.', components: [0.846, 1, 0.9995, 1, 0] },
+  { asset: 'TX-L', indicator: 62.73, band: 'REVIEW', priority: 'P2', confidence: 'High confidence', p95: '0.195', baseline: '136.32', recent: 7, recentRate: '0.44%', maxRun: 7, daysSince: '5.33 d', reasons: ['Strong DGA deviation: oxygen variability', 'Persistent or repeated anomaly behaviour', 'Recent anomaly activity', 'Transformer-specific baseline deviation'], suggestion: 'Review the recent DGA trend and transformer-specific history; verify data quality before changing inspection cadence.', components: [0.692, 1, 0.086, 0.923, 0.426] },
+  { asset: 'TX-F', indicator: 57.26, band: 'REVIEW', priority: 'P2', confidence: 'High confidence', p95: '0.305', baseline: '11.33', recent: 4, recentRate: '0.22%', maxRun: 435, daysSince: '8.08 d', reasons: ['Strong DGA deviation: ethane variability', 'Persistent or repeated anomaly behaviour', 'Recent anomaly activity'], suggestion: 'Review the recent DGA trend and transformer-specific history; verify data quality before changing inspection cadence.', components: [0.769, 1, 0.041, 0.385, 0.506] },
+  { asset: 'TX-D', indicator: 54.14, band: 'REVIEW', priority: 'P2', confidence: 'High confidence', p95: '0.148', baseline: '20.57', recent: 9, recentRate: '1.65%', maxRun: 11, daysSince: '56.33 d', reasons: ['Strong DGA deviation: oxygen change', 'Persistent or repeated anomaly behaviour', 'Recent anomaly activity', 'Transformer-specific baseline deviation'], suggestion: 'Review the recent DGA trend and transformer-specific history; verify data quality before changing inspection cadence.', components: [0.308, 1, 0.241, 0.769, 0.571] },
+  { asset: 'TX-C', indicator: 52.08, band: 'REVIEW', priority: 'P2', confidence: 'High confidence', p95: '0.121', baseline: '29.28', recent: 9, recentRate: '1.65%', maxRun: 5, daysSince: '56.33 d', reasons: ['Strong DGA deviation: oxygen variability', 'Persistent or repeated anomaly behaviour', 'Recent anomaly activity', 'Transformer-specific baseline deviation'], suggestion: 'Review the recent DGA trend and transformer-specific history; verify data quality before changing inspection cadence.', components: [0.231, 1, 0.241, 0.846, 0.510] },
+  { asset: 'TX-A', indicator: 50.71, band: 'REVIEW', priority: 'P2', confidence: 'Moderate confidence', p95: '0.182', baseline: '6.67', recent: 3, recentRate: '0.19%', maxRun: 3, daysSince: '97.71 d', reasons: ['Strong DGA deviation: carbon dioxide concentration', 'Persistent or repeated anomaly behaviour', 'Recent anomaly activity'], suggestion: 'Review the recent DGA trend and transformer-specific history; verify data quality before changing inspection cadence.', components: [0.615, 0.880, 0.022, 0.077, 0.871] },
+  { asset: 'TX-H', indicator: 48.67, band: 'MONITOR', priority: 'P3', confidence: 'High confidence', p95: '0.154', baseline: '15.73', recent: 0, recentRate: '0%', maxRun: 5, daysSince: '1,027.79 d', reasons: ['Strong DGA deviation: ethane concentration', 'Persistent or repeated anomaly behaviour'], suggestion: 'Continue monitoring, review repeated deviations, and confirm that sampling continuity supports interpretation.', components: [0.385, 1, 0, 0.615, 0.527] },
+  { asset: 'TX-E', indicator: 46.39, band: 'MONITOR', priority: 'P3', confidence: 'High confidence', p95: '0.173', baseline: '8.61', recent: 0, recentRate: '0%', maxRun: 26, daysSince: '195.92 d', reasons: ['Strong DGA deviation: hydrogen concentration', 'Persistent or repeated anomaly behaviour'], suggestion: 'Continue monitoring, review repeated deviations, and confirm that sampling continuity supports interpretation.', components: [0.5, 1, 0, 0.269, 0.490] },
+  { asset: 'TX-G', indicator: 46.39, band: 'MONITOR', priority: 'P3', confidence: 'High confidence', p95: '0.173', baseline: '8.61', recent: 0, recentRate: '0%', maxRun: 26, daysSince: '195.92 d', reasons: ['Strong DGA deviation: hydrogen concentration', 'Persistent or repeated anomaly behaviour'], suggestion: 'Continue monitoring, review repeated deviations, and confirm that sampling continuity supports interpretation.', components: [0.5, 1, 0, 0.269, 0.490] },
+  { asset: 'TX-B', indicator: 42.29, band: 'MONITOR', priority: 'P3', confidence: 'High confidence', p95: '0.085', baseline: '19.10', recent: 0, recentRate: '0%', maxRun: 7, daysSince: '1,081.79 d', reasons: ['Strong DGA deviation: oxygen concentration', 'Persistent or repeated anomaly behaviour'], suggestion: 'Continue monitoring, review repeated deviations, and confirm that sampling continuity supports interpretation.', components: [0.154, 1, 0, 0.692, 0.486] },
+  { asset: 'TX-K', indicator: 36.89, band: 'MONITOR', priority: 'P3', confidence: 'High confidence', p95: '0.079', baseline: '15.09', recent: 0, recentRate: '0%', maxRun: 101, daysSince: '602.04 d', reasons: ['Strong DGA deviation: water variability', 'Persistent or repeated anomaly behaviour'], suggestion: 'Continue monitoring, review repeated deviations, and confirm that sampling continuity supports interpretation.', components: [0.077, 1, 0, 0.462, 0.511] },
+]
+
 const icon = (name: string) => {
   const paths: Record<string, string> = {
     arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
@@ -155,7 +188,7 @@ app.innerHTML = `
         <span class="brand-mark"><i></i><i></i><b></b></span>
         <span class="brand-name">Grid<span>Watch</span></span>
       </a>
-      <div class="topbar-meta"><span class="live-dot"></span><span>Real data / phase 09B review</span><span class="meta-divider"></span><span>Decision support, not control</span></div>
+      <div class="topbar-meta"><span class="live-dot"></span><span>Real data / phase 11 review</span><span class="meta-divider"></span><span>Decision support, not control</span></div>
       <a class="rail-link" href="#next-phase">Next phase ${icon('arrow')}</a>
     </header>
 
@@ -180,10 +213,10 @@ app.innerHTML = `
             <div class="hero-note"><span class="note-mark">↳</span> No autonomous control. No fabricated labels. No novelty claims.</div>
           </div>
           <div class="hero-instrument" aria-label="Prototype status panel">
-            <div class="instrument-head"><span>READINESS / 09B</span><span class="instrument-status"><i></i> ANOMALY REVIEW READY</span></div>
+              <div class="instrument-head"><span>READINESS / 11</span><span class="instrument-status"><i></i> CONDITION REVIEW READY</span></div>
             <div class="dial-wrap">
-              <div class="dial"><div class="dial-inner"><span class="dial-value">01</span><span class="dial-caption">phase</span></div><span class="dial-tick tick-a"></span><span class="dial-tick tick-b"></span><span class="dial-tick tick-c"></span></div>
-              <div class="instrument-copy"><span class="tiny-label">CURRENT QUESTION</span><strong>What can this<br/>dataset support?</strong><span class="instrument-sub">Real DGA data is validated. The supervised target gate remains open.</span></div>
+              <div class="dial"><div class="dial-inner"><span class="dial-value">11</span><span class="dial-caption">phase</span></div><span class="dial-tick tick-a"></span><span class="dial-tick tick-b"></span><span class="dial-tick tick-c"></span></div>
+              <div class="instrument-copy"><span class="tiny-label">CURRENT QUESTION</span><strong>What can this<br/>dataset support?</strong><span class="instrument-sub">Real DGA data is validated. The condition indicator is retrospective.</span></div>
             </div>
             <div class="instrument-readout"><div><span class="tiny-label">REAL TARGET</span><code>not available</code></div><div><span class="tiny-label">ASSETS</span><strong>13 TX</strong></div><div><span class="tiny-label">STATUS</span><strong class="lime-text">Target gate</strong></div></div>
             <p class="instrument-foot">No failure, fault, or health label is present. Do not invent one from gas thresholds.</p>
@@ -266,8 +299,20 @@ app.innerHTML = `
           <div class="anomaly-note"><span>↳</span><strong>Human review remains required.</strong><p>High anomaly scores may reflect unusual gas behaviour, missingness, maintenance/oil-processing resets, regime changes, or measurement quality. No anomaly row is a failure label.</p></div>
         </section>
 
+        <section class="condition-section section-pad" id="condition-assessment">
+          <div class="section-kicker"><span>05C</span><span>Phase 11 / real DGA condition assessment</span></div>
+          <div class="condition-head"><div><h2>Rank the signal,<br/><em>not the failure.</em></h2></div><p>This transparent prototype combines validated anomaly intensity, persistence, recency, transformer-specific deviation, and trend. Confidence is reported separately so missingness cannot inflate condition.</p></div>
+          <div class="condition-stat-grid"><div><strong>0–100</strong><span>prototype indicator scale</span></div><div><strong>2 / 13</strong><span>P1 high-review queue</span></div><div><strong>11 / 13</strong><span>high-confidence assets</span></div><div><strong>180d</strong><span>recent activity window</span></div></div>
+          <div class="condition-grid">
+            <div class="condition-card condition-queue-card"><div class="real-card-head"><span class="review-label">ENGINEERING REVIEW QUEUE / 13 ASSETS</span><span class="real-chip warning">PROTOTYPE</span></div><div class="condition-queue">${realConditionAssets.map((row, index) => `<button class="condition-queue-row ${index === 0 ? 'selected' : ''}" type="button" data-condition-asset="${row.asset}"><span class="condition-queue-rank">${String(index + 1).padStart(2, '0')}</span><span class="condition-queue-asset"><strong>${row.asset}</strong><small>${row.band} · ${row.confidence.replace(' confidence', '')}</small></span><span class="condition-queue-meter"><i style="width:${row.indicator}%"></i></span><b>${row.indicator.toFixed(2)}</b><em>${row.priority}</em></button>`).join('')}</div></div>
+            <div class="condition-card condition-detail-card"><div class="real-card-head"><span class="review-label">TRANSFORMER DETAIL / <span id="condition-detail-asset">TX-I</span></span><span class="real-chip" id="condition-detail-confidence">HIGH CONFIDENCE</span></div><div id="condition-detail-panel"></div></div>
+          </div>
+          <div class="condition-distribution-grid"><div class="condition-mini-card"><span class="review-label">CONDITION BANDS</span><div class="distribution-row"><span>HIGH REVIEW</span><i><b style="width:23%"></b></i><strong>3</strong></div><div class="distribution-row"><span>REVIEW</span><i><b style="width:38%"></b></i><strong>5</strong></div><div class="distribution-row"><span>MONITOR</span><i><b style="width:38%"></b></i><strong>5</strong></div><p>Project-defined analytical bands; not utility alarm limits.</p></div><div class="condition-mini-card"><span class="review-label">CONFIDENCE / DATA QUALITY</span><div class="distribution-row"><span>HIGH</span><i><b style="width:85%"></b></i><strong>11</strong></div><div class="distribution-row"><span>MODERATE</span><i><b style="width:8%"></b></i><strong>1</strong></div><div class="distribution-row"><span>LIMITED</span><i><b style="width:8%"></b></i><strong>1</strong></div><p>TX-J is limited because 40.27% of rows have missing gas measurements.</p></div><div class="condition-mini-card"><span class="review-label">COMPONENT WEIGHTS</span><div class="weight-list"><span><b>30%</b> fleet anomaly intensity</span><span><b>20%</b> persistence</span><span><b>20%</b> recency</span><span><b>15%</b> specific baseline · <b>15%</b> trend</span></div><p>No failure probability is calculated.</p></div></div>
+          <div class="condition-note"><span>↳</span><strong>Read this as a screening indicator.</strong><p>Statistical deviation is not a diagnosis or causal explanation. Review recent DGA history, sampling continuity, transformer-specific behaviour, and qualified engineering context before any action.</p></div>
+        </section>
+
         <section class="model-lab-section section-pad" id="model-lab">
-          <div class="section-kicker"><span>05C</span><span>Optional / synthetic model lab</span></div>
+          <div class="section-kicker"><span>05D</span><span>Optional / synthetic model lab</span></div>
           <div class="model-lab-head"><div><h2>Demonstrate the workflow,<br/><em>not the utility result.</em></h2></div><p>These tabs remain available as a fixed-seed synthetic demonstration. They are intentionally separated from the real-data evidence above and must not be read as performance on the 13-transformer source.</p></div>
           <div class="model-tabs" role="tablist" aria-label="Phase 3 model tabs"><button class="model-tab active" role="tab" aria-selected="true" aria-controls="evaluation-panel" data-model-panel="evaluation-panel">Model evaluation</button><button class="model-tab" role="tab" aria-selected="false" aria-controls="risk-panel" data-model-panel="risk-panel">Risk prediction</button></div>
           <div class="model-panel active" id="evaluation-panel" role="tabpanel">
@@ -283,7 +328,7 @@ app.innerHTML = `
         </section>
 
         <section class="review-lab-section section-pad" id="review-lab">
-          <div class="section-kicker"><span>05D</span><span>Optional / synthetic review layer</span></div>
+          <div class="section-kicker"><span>05E</span><span>Optional / synthetic review layer</span></div>
           <div class="review-lab-head"><div><h2>Explain the signal.<br/><em>Then decide.</em></h2></div><p>These explainability and maintenance views remain synthetic demonstrations until a real supervised target exists. They support review; they do not diagnose or control equipment.</p></div>
           <div class="review-tabs" role="tablist" aria-label="Phase 4 review tabs"><button class="review-tab active" role="tab" aria-selected="true" aria-controls="explainability-panel" data-review-panel="explainability-panel">Explainability</button><button class="review-tab" role="tab" aria-selected="false" aria-controls="maintenance-panel" data-review-panel="maintenance-panel">Maintenance recommendations</button></div>
           <div class="review-panel active" id="explainability-panel" role="tabpanel">
@@ -352,6 +397,29 @@ document.querySelectorAll<HTMLButtonElement>('.row-toggle').forEach((button) => 
     button.setAttribute('aria-expanded', String(isVisible))
   })
 })
+
+const conditionDetailPanel = document.querySelector<HTMLDivElement>('#condition-detail-panel')
+const conditionDetailAsset = document.querySelector<HTMLSpanElement>('#condition-detail-asset')
+const conditionDetailConfidence = document.querySelector<HTMLSpanElement>('#condition-detail-confidence')
+const componentLabels = ['Intensity', 'Persistence', 'Recency', 'Specific baseline', 'Trend / change']
+const renderConditionDetail = (row: ConditionAsset) => {
+  if (!conditionDetailPanel || !conditionDetailAsset || !conditionDetailConfidence) return
+  conditionDetailAsset.textContent = row.asset
+  conditionDetailConfidence.textContent = row.confidence.toUpperCase()
+  conditionDetailConfidence.className = `real-chip ${row.confidence.startsWith('Limited') ? 'warning' : ''}`
+  conditionDetailPanel.innerHTML = `<div class="condition-detail-score"><div><span class="tiny-label">DGA CONDITION INDICATOR</span><strong>${row.indicator.toFixed(2)}</strong><span class="condition-band-chip ${row.band.toLowerCase().replace(' ', '-')}">${row.band} · ${row.priority}</span></div><div class="condition-detail-bar"><i style="width:${row.indicator}%"></i></div></div><div class="condition-detail-facts"><div><span>Fleet p95</span><strong>${row.p95}</strong></div><div><span>Specific p95</span><strong>${row.baseline}</strong></div><div><span>Recent flags</span><strong>${row.recent} · ${row.recentRate}</strong></div><div><span>Longest run</span><strong>${row.maxRun}</strong></div><div><span>Last anomaly</span><strong>${row.daysSince}</strong></div></div><div class="condition-components">${row.components.map((value, index) => `<div><span>${componentLabels[index]}</span><i><b style="width:${Math.round(value * 100)}%"></b></i><strong>${Math.round(value * 100)}%</strong></div>`).join('')}</div><div class="condition-reasons"><span class="review-label">EVIDENCE-BOUND REASONS</span>${row.reasons.map((reason) => `<span><i></i>${reason}</span>`).join('')}</div><div class="condition-suggestion"><span class="review-label">ENGINEERING REVIEW SUGGESTION</span><p>${row.suggestion}</p></div>`
+}
+
+const conditionQueue = document.querySelectorAll<HTMLButtonElement>('.condition-queue-row')
+conditionQueue.forEach((button) => {
+  button.addEventListener('click', () => {
+    const row = realConditionAssets.find((item) => item.asset === button.dataset.conditionAsset)
+    if (!row) return
+    conditionQueue.forEach((item) => item.classList.toggle('selected', item === button))
+    renderConditionDetail(row)
+  })
+})
+renderConditionDetail(realConditionAssets[0])
 
 document.querySelectorAll<HTMLButtonElement>('.model-tab').forEach((tab) => {
   tab.addEventListener('click', () => {
