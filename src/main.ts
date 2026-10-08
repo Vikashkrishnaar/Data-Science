@@ -197,6 +197,15 @@ const phase12Thresholds = [
   ['10%', '20,322', 'TX-I → TX-M → TX-J', '2'],
 ]
 
+const phase13Stability: Record<string, string> = Object.fromEntries(phase12RobustnessAssets.map((row) => [row[0], row[4]]))
+const phase13Consensus: Record<string, string> = Object.fromEntries(phase12RobustnessAssets.map((row) => [row[0], row[5]]))
+const phase13QueueRows = realConditionAssets.map((row) => ({
+  ...row,
+  observations: realAssetSummary.find((asset) => asset[0] === row.asset)?.[1] ?? '—',
+  stability: phase13Stability[row.asset] ?? '—',
+  consensus: phase13Consensus[row.asset] ?? '—',
+}))
+
 const icon = (name: string) => {
   const paths: Record<string, string> = {
     arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
@@ -333,6 +342,9 @@ app.innerHTML = `
           <div class="section-kicker"><span>05C</span><span>Phase 11 / real DGA condition assessment</span></div>
           <div class="condition-head"><div><h2>Rank the signal,<br/><em>not the failure.</em></h2></div><p>This transparent prototype combines validated anomaly intensity, persistence, recency, transformer-specific deviation, and trend. Confidence is reported separately so missingness cannot inflate condition.</p></div>
           <div class="condition-stat-grid"><div><strong>0–100</strong><span>prototype indicator scale</span></div><div><strong>2 / 13</strong><span>P1 high-review queue</span></div><div><strong>11 / 13</strong><span>high-confidence assets</span></div><div><strong>180d</strong><span>recent activity window</span></div></div>
+          <div class="queue-toolbar" aria-label="Transformer review filters"><label><span>Transformer</span><select id="transformer-filter"><option value="all">All assets</option>${phase13QueueRows.map((row) => `<option value="${row.asset}">${row.asset}</option>`).join('')}</select></label><label><span>Priority</span><select id="priority-filter"><option value="all">All priorities</option><option value="P1">P1</option><option value="P2">P2</option><option value="P3">P3</option></select></label><label><span>Condition band</span><select id="band-filter"><option value="all">All bands</option><option value="HIGH REVIEW">High review</option><option value="REVIEW">Review</option><option value="MONITOR">Monitor</option></select></label><label><span>Confidence</span><select id="confidence-filter"><option value="all">All confidence</option><option value="High confidence">High</option><option value="Moderate confidence">Moderate</option><option value="Limited confidence">Limited</option></select></label><span class="filter-status" id="filter-status">13 assets shown · real UK DGA data</span></div>
+          <div class="review-queue-card"><div class="real-card-head"><span class="review-label">ENGINEERING REVIEW QUEUE / FILTERABLE EVIDENCE VIEW</span><span class="real-chip">REAL UK DGA DATA</span></div><div class="review-queue-wrap"><table class="review-queue-table"><thead><tr><th>Transformer</th><th>Indicator</th><th>Band</th><th>Priority</th><th>Confidence</th><th>Recent activity</th><th>Persistence</th><th>Strongest reason</th><th>Stability</th></tr></thead><tbody id="review-queue-body"></tbody></table><div class="queue-empty" id="queue-empty" hidden>No transformers match these filters. Clear one filter to continue.</div></div></div>
+          <div class="monitoring-chart-card"><div class="real-card-head"><span class="review-label">RECENT ANOMALY ACTIVITY / 180-DAY WINDOW</span><span class="real-chip warning">SCREENING SUMMARY</span></div><div class="activity-chart" role="img" aria-label="Recent anomaly activity rate by transformer">${phase13QueueRows.slice(0, 8).map((row) => `<div class="activity-row"><span>${row.asset}</span><i><b style="width:${Math.max(3, Math.min(100, parseFloat(row.recentRate)))}%"></b></i><strong>${row.recentRate}</strong></div>`).join('')}</div><p class="real-footnote">Activity rate is the Phase 11 recent anomaly count divided by recent observations. It is not a failure rate.</p></div>
           <div class="condition-grid">
             <div class="condition-card condition-queue-card"><div class="real-card-head"><span class="review-label">ENGINEERING REVIEW QUEUE / 13 ASSETS</span><span class="real-chip warning">PROTOTYPE</span></div><div class="condition-queue">${realConditionAssets.map((row, index) => `<button class="condition-queue-row ${index === 0 ? 'selected' : ''}" type="button" data-condition-asset="${row.asset}"><span class="condition-queue-rank">${String(index + 1).padStart(2, '0')}</span><span class="condition-queue-asset"><strong>${row.asset}</strong><small>${row.band} · ${row.confidence.replace(' confidence', '')}</small></span><span class="condition-queue-meter"><i style="width:${row.indicator}%"></i></span><b>${row.indicator.toFixed(2)}</b><em>${row.priority}</em></button>`).join('')}</div></div>
             <div class="condition-card condition-detail-card"><div class="real-card-head"><span class="review-label">TRANSFORMER DETAIL / <span id="condition-detail-asset">TX-I</span></span><span class="real-chip" id="condition-detail-confidence">HIGH CONFIDENCE</span></div><div id="condition-detail-panel"></div></div>
@@ -464,6 +476,30 @@ conditionQueue.forEach((button) => {
   })
 })
 renderConditionDetail(realConditionAssets[0])
+
+const reviewQueueBody = document.querySelector<HTMLTableSectionElement>('#review-queue-body')
+const reviewQueueEmpty = document.querySelector<HTMLDivElement>('#queue-empty')
+const filterStatus = document.querySelector<HTMLSpanElement>('#filter-status')
+const reviewFilters = ['transformer-filter', 'priority-filter', 'band-filter', 'confidence-filter'].map((id) => document.querySelector<HTMLSelectElement>(`#${id}`))
+const renderReviewQueue = () => {
+  if (!reviewQueueBody) return
+  const [assetFilter, priorityFilter, bandFilter, confidenceFilter] = reviewFilters.map((select) => select?.value ?? 'all')
+  const filtered = phase13QueueRows.filter((row) => (assetFilter === 'all' || row.asset === assetFilter) && (priorityFilter === 'all' || row.priority.startsWith(priorityFilter)) && (bandFilter === 'all' || row.band === bandFilter) && (confidenceFilter === 'all' || row.confidence === confidenceFilter))
+  reviewQueueBody.innerHTML = filtered.map((row) => `<tr class="review-queue-row" data-review-asset="${row.asset}"><td><strong>${row.asset}</strong><small>${row.observations} observations</small></td><td><b>${row.indicator.toFixed(2)}</b></td><td><span class="queue-band ${row.band.toLowerCase().replace(' ', '-')}">${row.band}</span></td><td><span class="queue-priority">${row.priority}</span></td><td><span class="queue-confidence ${row.confidence.startsWith('Limited') ? 'limited' : ''}">${row.confidence.replace(' confidence', '')}</span></td><td>${row.recentRate}</td><td>${row.maxRun} max run</td><td>${row.reasons[0]}</td><td><span class="queue-stability">${row.stability}</span></td></tr>`).join('')
+  if (reviewQueueEmpty) reviewQueueEmpty.hidden = filtered.length > 0
+  if (filterStatus) filterStatus.textContent = `${filtered.length} asset${filtered.length === 1 ? '' : 's'} shown · real UK DGA data`
+  reviewQueueBody.querySelectorAll<HTMLTableRowElement>('.review-queue-row').forEach((rowElement) => {
+    rowElement.addEventListener('click', () => {
+      const row = realConditionAssets.find((item) => item.asset === rowElement.dataset.reviewAsset)
+      if (!row) return
+      conditionQueue.forEach((item) => item.classList.toggle('selected', item.dataset.conditionAsset === row.asset))
+      renderConditionDetail(row)
+      document.querySelector('#condition-assessment')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    })
+  })
+}
+reviewFilters.forEach((select) => select?.addEventListener('change', renderReviewQueue))
+renderReviewQueue()
 
 document.querySelectorAll<HTMLButtonElement>('.model-tab').forEach((tab) => {
   tab.addEventListener('click', () => {

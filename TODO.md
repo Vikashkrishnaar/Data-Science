@@ -10,3 +10,4 @@
 - Include a phase progress timeline with visible approval gates and a next-phase CTA that requests approval instead of automatically executing the next phase.
 - Include a clearly illustrative sample transformer risk table with risk bands, health status, inspection priority, and a non-fabrication disclaimer.
 - Avoid invented dataset contents, labels, metrics, sensor coverage, novelty claims, and production deployment claims.
+- Complete Phase 13 final dashboard integration: keep the dark industrial smart-grid identity; foreground Real UK DGA Monitoring; provide a filterable Transformer Review Queue and detail view; expose Phase 12 robustness context; use precomputed summaries; keep REAL UK DGA DATA and SYNTHETIC DEMONSTRATION strictly separated; use Anomaly Score and Review Indicator terminology instead of fabricated probabilities; add `DASHBOARD_GUIDE.md`; and retain the engineering-review approval boundary.
