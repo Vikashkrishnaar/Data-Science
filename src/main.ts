@@ -809,6 +809,7 @@ export function renderFleetPersistenceSvg(): string {
 
 class DashboardState {
   selectedAssetId: string = 'TX-I'
+  activeView: string = 'overview'
   filterPriority: string = 'ALL'
   filterBand: string = 'ALL'
   filterConfidence: string = 'ALL'
@@ -836,7 +837,7 @@ class DashboardState {
   }
 }
 
-const state = new DashboardState()
+  const state = new DashboardState()
 
 // ============================================================
 // UI RENDERERS
@@ -903,6 +904,10 @@ export function renderApp(): void {
 
         <!-- MAIN DASHBOARD CONTENT -->
         <main class="main-content">
+          <div class="workspace-header">
+            <div><span class="workspace-kicker">GRIDWATCH / WORKSPACE</span><strong id="active-view-label">Overview</strong></div>
+            <div class="workspace-context"><span class="workspace-status-dot"></span><span>Read-only analytical screening</span><span class="workspace-divider"></span><span>Phase 13</span></div>
+          </div>
 
           <!-- SECTION 1: OVERVIEW PAGE -->
           <section id="overview" class="section-pad hero-section">
@@ -1823,6 +1828,7 @@ export function renderApp(): void {
     </div>
   `
 
+  applyActiveView()
   bindEventListeners()
 }
 
@@ -1830,15 +1836,46 @@ export function renderApp(): void {
 // EVENT LISTENERS & INTERACTION BINDINGS
 // ============================================================
 
+function applyActiveView(): void {
+  document.querySelectorAll<HTMLElement>('.main-content > section').forEach((section) => {
+    section.classList.toggle('is-active-view', section.id === state.activeView)
+  })
+  document.querySelectorAll<HTMLAnchorElement>('.rail-nav-link').forEach((link) => {
+    const active = link.dataset.section === state.activeView
+    link.classList.toggle('active', active)
+    if (active) link.setAttribute('aria-current', 'page')
+    else link.removeAttribute('aria-current')
+  })
+  const activeLabel = document.querySelector<HTMLElement>('#active-view-label')
+  const currentLink = document.querySelector<HTMLAnchorElement>(`.rail-nav-link[data-section="${state.activeView}"]`)
+  if (activeLabel && currentLink) activeLabel.textContent = currentLink.querySelector('.rail-txt')?.textContent || 'Overview'
+}
+
+function setActiveView(view: string): void {
+  if (!document.getElementById(view)) return
+  state.activeView = view
+  applyActiveView()
+  window.history.replaceState(null, '', `#${view}`)
+  document.querySelector('.main-content')?.scrollTo({ top: 0, behavior: 'smooth' })
+}
+
 function bindEventListeners(): void {
+  document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach((link) => {
+    link.addEventListener('click', (event) => {
+      const view = link.getAttribute('href')?.slice(1)
+      if (!view || !document.getElementById(view)) return
+      event.preventDefault()
+      setActiveView(view)
+    })
+  })
+
   // Quick asset jumper in topbar
   const quickSelect = document.querySelector<HTMLSelectElement>('#quick-asset-select')
   if (quickSelect) {
     quickSelect.addEventListener('change', () => {
       state.selectedAssetId = quickSelect.value
+      state.activeView = 'transformer-detail'
       renderApp()
-      const detailSec = document.querySelector('#transformer-detail')
-      if (detailSec) detailSec.scrollIntoView({ behavior: 'smooth' })
     })
   }
 
@@ -1849,9 +1886,8 @@ function bindEventListeners(): void {
       const txId = btn.dataset.txId
       if (txId) {
         state.selectedAssetId = txId
+        state.activeView = 'transformer-detail'
         renderApp()
-        const detailSec = document.querySelector('#transformer-detail')
-        if (detailSec) detailSec.scrollIntoView({ behavior: 'smooth' })
       }
     })
   })
@@ -1862,9 +1898,8 @@ function bindEventListeners(): void {
       const txId = row.dataset.txId
       if (txId) {
         state.selectedAssetId = txId
+        state.activeView = 'transformer-detail'
         renderApp()
-        const detailSec = document.querySelector('#transformer-detail')
-        if (detailSec) detailSec.scrollIntoView({ behavior: 'smooth' })
       }
     })
   })
@@ -1918,5 +1953,8 @@ function bindEventListeners(): void {
   }
 }
 
-// Initial render
+// Initial render — keep direct workspace links usable on refresh.
+const initialView = window.location.hash.replace('#', '')
+const availableViews = ['overview', 'real-monitoring', 'review-queue', 'transformer-detail', 'condition-assessment', 'dga-trends', 'explainability', 'robustness', 'synthetic-lab', 'methodology', 'limitations']
+if (availableViews.includes(initialView)) state.activeView = initialView
 renderApp()
