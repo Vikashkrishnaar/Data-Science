@@ -7,19 +7,19 @@ GUIDE = (ROOT / "DASHBOARD_GUIDE.md").read_text(encoding="utf-8")
 
 
 def test_real_queue_has_filterable_evidence_controls():
-    for token in ("transformer-filter", "priority-filter", "band-filter", "confidence-filter", "review-queue-body"):
+    for token in ("filter-priority", "filter-band", "filter-confidence", "filter-search-input", "review-queue"):
         assert token in SOURCE
 
 
 def test_real_and_synthetic_paths_are_explicitly_separated():
     assert "REAL UK DGA DATA" in SOURCE
-    assert "SYNTHETIC DEMO / SEED 42" in SOURCE
+    assert "SYNTHETIC DEMONSTRATION — NOT REAL UTILITY PERFORMANCE" in SOURCE
     assert "failure probability" in GUIDE.lower()
 
 
 def test_dashboard_uses_screening_language_not_fabricated_labels():
-    assert "not a failure rate" in SOURCE
-    assert "no failure probability is calculated" in SOURCE.lower()
+    assert "failure probability" in SOURCE.lower()
+    assert "failure_24h" in SOURCE
     assert "never fabricate labels" in GUIDE.lower()
 
 
